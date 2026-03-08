@@ -29,7 +29,7 @@ Homey app for **Škoda** vehicles using the **MyŠkoda platform**. Connect your 
 
 - A Škoda vehicle with active **MyŠkoda Connect** services
 - A **MyŠkoda account** (the same account used in the official MyŠkoda mobile app)
-- **Homey Pro** or **Homey Cloud** with SDK v3 support (firmware ≥ 12.4.0)
+- **Homey Pro** or **Homey Cloud** with SDK v3 support (firmware ≥ 10.0.0)
 
 ## Installation
 
