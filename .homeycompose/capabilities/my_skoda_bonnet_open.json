@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Bonnet open",
+    "nl": "Motorkap open"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/bonnet.svg",
+  "insightsTitleTrue": {
+    "en": "Bonnet was opened",
+    "nl": "Motorkap werd geopend"
+  },
+  "insightsTitleFalse": {
+    "en": "Bonnet was closed",
+    "nl": "Motorkap werd gesloten"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Charging state",
+    "nl": "Laadstatus"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/charging.svg",
+  "values": [
+    {
+      "id": "ready_for_charging",
+      "title": {
+        "en": "Ready for charging",
+        "nl": "Klaar om te laden"
+      }
+    },
+    {
+      "id": "charging",
+      "title": {
+        "en": "Charging",
+        "nl": "Aan het laden"
+      }
+    },
+    {
+      "id": "conserving",
+      "title": {
+        "en": "Conserving",
+        "nl": "Conserveren"
+      }
+    },
+    {
+      "id": "connect_cable",
+      "title": {
+        "en": "Connect cable",
+        "nl": "Kabel aansluiten"
+      }
+    },
+    {
+      "id": "charging_interrupted",
+      "title": {
+        "en": "Charging interrupted",
+        "nl": "Laden onderbroken"
+      }
+    },
+    {
+      "id": "error",
+      "title": {
+        "en": "Error",
+        "nl": "Fout"
+      }
+    },
+    {
+      "id": "unknown",
+      "title": {
+        "en": "Unknown",
+        "nl": "Onbekend"
+      }
+    }
+  ]
+}

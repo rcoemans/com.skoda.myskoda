@@ -1,1 +1,22 @@
-{}
+{
+  "pair": {
+    "login_failed": "Login failed. Please check your email and password.",
+    "no_vehicles": "No vehicles found in your MyŠkoda account."
+  },
+  "device": {
+    "auth_required": "Authentication required. Please re-pair this device.",
+    "auth_failed": "Authentication failed. Please re-pair this device.",
+    "auth_expired": "Authentication expired. Please re-pair this device."
+  },
+  "settings": {
+    "saved": "Settings saved.",
+    "poll_interval_label": "Poll interval (minutes)",
+    "poll_interval_hint": "How often to refresh vehicle data (in minutes).",
+    "low_battery_threshold_label": "Low battery threshold (%)",
+    "low_battery_threshold_hint": "Battery percentage below which a low battery alert triggers.",
+    "home_latitude_label": "Home latitude",
+    "home_longitude_label": "Home longitude",
+    "home_radius_label": "Home radius (meters)",
+    "debug_logging_label": "Enable debug logging"
+  }
+}

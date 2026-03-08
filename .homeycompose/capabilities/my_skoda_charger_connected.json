@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Charger connected",
+    "nl": "Lader aangesloten"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/plug.svg",
+  "insightsTitleTrue": {
+    "en": "Charger was connected",
+    "nl": "Lader was aangesloten"
+  },
+  "insightsTitleFalse": {
+    "en": "Charger was disconnected",
+    "nl": "Lader was losgekoppeld"
+  }
+}

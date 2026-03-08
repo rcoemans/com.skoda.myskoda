@@ -1,0 +1,22 @@
+{
+  "id": "start_charging",
+  "title": {
+    "en": "Start charging",
+    "nl": "Laden starten"
+  },
+  "titleFormatted": {
+    "en": "Start charging",
+    "nl": "Laden starten"
+  },
+  "hint": {
+    "en": "Start charging the vehicle.",
+    "nl": "Start het laden van het voertuig."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

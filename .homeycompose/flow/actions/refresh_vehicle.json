@@ -1,0 +1,22 @@
+{
+  "id": "refresh_vehicle",
+  "title": {
+    "en": "Refresh vehicle data",
+    "nl": "Voertuiggegevens vernieuwen"
+  },
+  "titleFormatted": {
+    "en": "Refresh vehicle data",
+    "nl": "Voertuiggegevens vernieuwen"
+  },
+  "hint": {
+    "en": "Manually refresh all vehicle data from the MyŠkoda cloud.",
+    "nl": "Vernieuw handmatig alle voertuiggegevens vanuit de MyŠkoda-cloud."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

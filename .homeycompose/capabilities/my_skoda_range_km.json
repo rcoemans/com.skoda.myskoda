@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Range",
+    "nl": "Bereik"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/range.svg",
+  "units": {
+    "en": "km",
+    "nl": "km"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "start_climate",
+  "title": {
+    "en": "Start climatization",
+    "nl": "Klimaatregeling starten"
+  },
+  "titleFormatted": {
+    "en": "Start climatization at [[temperature]] °C",
+    "nl": "Klimaatregeling starten op [[temperature]] °C"
+  },
+  "hint": {
+    "en": "Start the vehicle's air conditioning at the specified temperature.",
+    "nl": "Start de airconditioning van het voertuig op de opgegeven temperatuur."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    },
+    {
+      "type": "number",
+      "name": "temperature",
+      "title": {
+        "en": "Temperature (°C)",
+        "nl": "Temperatuur (°C)"
+      },
+      "min": 16,
+      "max": 30,
+      "step": 0.5
+    }
+  ]
+}

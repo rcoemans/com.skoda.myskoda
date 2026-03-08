@@ -1,0 +1,36 @@
+{
+  "id": "vehicle_arrived_home",
+  "title": {
+    "en": "Vehicle arrived home",
+    "nl": "Voertuig is thuisgekomen"
+  },
+  "titleFormatted": {
+    "en": "Vehicle arrived home",
+    "nl": "Voertuig is thuisgekomen"
+  },
+  "hint": {
+    "en": "Triggers when the vehicle enters the home geofence.",
+    "nl": "Wordt geactiveerd wanneer het voertuig de thuisgeofence binnenkomt."
+  },
+  "tokens": [
+    {
+      "name": "vehicle_name",
+      "type": "string",
+      "title": {
+        "en": "Vehicle name",
+        "nl": "Voertuignaam"
+      },
+      "example": {
+        "en": "My Elroq",
+        "nl": "Mijn Elroq"
+      }
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

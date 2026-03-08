@@ -1,0 +1,22 @@
+{
+  "id": "stop_charging",
+  "title": {
+    "en": "Stop charging",
+    "nl": "Laden stoppen"
+  },
+  "titleFormatted": {
+    "en": "Stop charging",
+    "nl": "Laden stoppen"
+  },
+  "hint": {
+    "en": "Stop charging the vehicle.",
+    "nl": "Stop het laden van het voertuig."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

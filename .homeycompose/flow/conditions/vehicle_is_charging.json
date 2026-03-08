@@ -1,0 +1,22 @@
+{
+  "id": "vehicle_is_charging",
+  "title": {
+    "en": "Vehicle !{{is|is not}} charging",
+    "nl": "Voertuig !{{is|is niet}} aan het laden"
+  },
+  "titleFormatted": {
+    "en": "Vehicle !{{is|is not}} charging",
+    "nl": "Voertuig !{{is|is niet}} aan het laden"
+  },
+  "hint": {
+    "en": "Check if the vehicle is currently charging.",
+    "nl": "Controleer of het voertuig momenteel aan het laden is."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

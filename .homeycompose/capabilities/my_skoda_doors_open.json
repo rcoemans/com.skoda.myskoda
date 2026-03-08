@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Doors open",
+    "nl": "Deuren open"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/door.svg",
+  "insightsTitleTrue": {
+    "en": "A door was opened",
+    "nl": "Een deur werd geopend"
+  },
+  "insightsTitleFalse": {
+    "en": "All doors were closed",
+    "nl": "Alle deuren zijn gesloten"
+  }
+}

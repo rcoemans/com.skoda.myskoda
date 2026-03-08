@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Remaining charge time",
+    "nl": "Resterende laadtijd"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/clock.svg",
+  "units": {
+    "en": "min",
+    "nl": "min"
+  }
+}

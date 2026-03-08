@@ -1,0 +1,22 @@
+{
+  "id": "charger_is_connected",
+  "title": {
+    "en": "Charger !{{is|is not}} connected",
+    "nl": "Lader !{{is|is niet}} aangesloten"
+  },
+  "titleFormatted": {
+    "en": "Charger !{{is|is not}} connected",
+    "nl": "Lader !{{is|is niet}} aangesloten"
+  },
+  "hint": {
+    "en": "Check if the charger is connected to the vehicle.",
+    "nl": "Controleer of de lader is aangesloten op het voertuig."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

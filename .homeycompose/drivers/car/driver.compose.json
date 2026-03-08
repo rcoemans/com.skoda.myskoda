@@ -1,0 +1,224 @@
+{
+  "name": {
+    "en": "Car",
+    "nl": "Auto"
+  },
+  "class": "other",
+  "capabilities": [
+    "measure_battery",
+    "locked",
+    "measure_temperature",
+    "my_skoda_connection_status",
+    "my_skoda_last_vehicle_update",
+    "my_skoda_mileage_km",
+    "my_skoda_range_km",
+    "my_skoda_charger_connected",
+    "my_skoda_charging_state",
+    "my_skoda_charge_power_kw",
+    "my_skoda_remaining_charge_minutes",
+    "my_skoda_target_battery_percent",
+    "my_skoda_doors_open",
+    "my_skoda_windows_open",
+    "my_skoda_trunk_open",
+    "my_skoda_bonnet_open",
+    "my_skoda_climate_active",
+    "my_skoda_latitude",
+    "my_skoda_longitude",
+    "my_skoda_parking_address"
+  ],
+  "capabilitiesOptions": {
+    "measure_battery": {
+      "title": {
+        "en": "Battery level",
+        "nl": "Accuniveau"
+      }
+    },
+    "locked": {
+      "title": {
+        "en": "Locked",
+        "nl": "Vergrendeld"
+      }
+    },
+    "measure_temperature": {
+      "title": {
+        "en": "Outside temperature",
+        "nl": "Buitentemperatuur"
+      }
+    }
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "cloud"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "login",
+      "template": "login_credentials",
+      "options": {
+        "title": {
+          "en": "Log in to MyŠkoda",
+          "nl": "Inloggen bij MyŠkoda"
+        },
+        "usernameLabel": {
+          "en": "Email address",
+          "nl": "E-mailadres"
+        },
+        "usernamePlaceholder": {
+          "en": "name@example.com",
+          "nl": "naam@voorbeeld.nl"
+        },
+        "passwordLabel": {
+          "en": "Password",
+          "nl": "Wachtwoord"
+        },
+        "passwordPlaceholder": {
+          "en": "Password",
+          "nl": "Wachtwoord"
+        }
+      }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "options": {
+        "title": {
+          "en": "Select your vehicle(s)",
+          "nl": "Selecteer je voertuig(en)"
+        }
+      },
+      "navigation": {
+        "prev": "login"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices",
+      "options": {
+        "title": {
+          "en": "Adding vehicle(s)…",
+          "nl": "Voertuig(en) toevoegen…"
+        }
+      }
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "General",
+        "nl": "Algemeen"
+      },
+      "children": [
+        {
+          "id": "poll_interval",
+          "type": "number",
+          "label": {
+            "en": "Poll interval (minutes)",
+            "nl": "Poll-interval (minuten)"
+          },
+          "value": 15,
+          "min": 5,
+          "max": 60,
+          "hint": {
+            "en": "How often to refresh vehicle data (in minutes).",
+            "nl": "Hoe vaak voertuiggegevens worden ververst (in minuten)."
+          }
+        },
+        {
+          "id": "low_battery_threshold",
+          "type": "number",
+          "label": {
+            "en": "Low battery threshold (%)",
+            "nl": "Laag accuniveau-drempel (%)"
+          },
+          "value": 30,
+          "min": 5,
+          "max": 90,
+          "hint": {
+            "en": "Battery percentage below which a low battery alert triggers.",
+            "nl": "Accupercentage waaronder een melding voor laag accuniveau wordt geactiveerd."
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Home location",
+        "nl": "Thuislocatie"
+      },
+      "children": [
+        {
+          "id": "home_latitude",
+          "type": "number",
+          "label": {
+            "en": "Home latitude",
+            "nl": "Thuislocatie breedtegraad"
+          },
+          "value": 0,
+          "hint": {
+            "en": "Latitude of your home for arrival/departure detection.",
+            "nl": "Breedtegraad van je thuis voor aankomst-/vertrekdetectie."
+          }
+        },
+        {
+          "id": "home_longitude",
+          "type": "number",
+          "label": {
+            "en": "Home longitude",
+            "nl": "Thuislocatie lengtegraad"
+          },
+          "value": 0,
+          "hint": {
+            "en": "Longitude of your home for arrival/departure detection.",
+            "nl": "Lengtegraad van je thuis voor aankomst-/vertrekdetectie."
+          }
+        },
+        {
+          "id": "home_radius",
+          "type": "number",
+          "label": {
+            "en": "Home radius (meters)",
+            "nl": "Thuisradius (meters)"
+          },
+          "value": 200,
+          "min": 50,
+          "max": 5000,
+          "hint": {
+            "en": "Radius around your home coordinates to determine if the vehicle is 'at home'.",
+            "nl": "Straal rond je thuiscoördinaten om te bepalen of het voertuig 'thuis' is."
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Diagnostics",
+        "nl": "Diagnostiek"
+      },
+      "children": [
+        {
+          "id": "debug_logging",
+          "type": "checkbox",
+          "label": {
+            "en": "Enable debug logging",
+            "nl": "Uitgebreide logging inschakelen"
+          },
+          "value": false,
+          "hint": {
+            "en": "Log detailed API responses for troubleshooting. Sensitive data will be redacted.",
+            "nl": "Log gedetailleerde API-antwoorden voor probleemoplossing. Gevoelige gegevens worden afgeschermd."
+          }
+        }
+      ]
+    }
+  ]
+}

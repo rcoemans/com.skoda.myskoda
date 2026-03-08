@@ -1,0 +1,45 @@
+{
+  "id": "charging_started",
+  "title": {
+    "en": "Charging started",
+    "nl": "Laden gestart"
+  },
+  "titleFormatted": {
+    "en": "Charging started",
+    "nl": "Laden gestart"
+  },
+  "hint": {
+    "en": "Triggers when the vehicle starts charging.",
+    "nl": "Wordt geactiveerd wanneer het voertuig begint met laden."
+  },
+  "tokens": [
+    {
+      "name": "vehicle_name",
+      "type": "string",
+      "title": {
+        "en": "Vehicle name",
+        "nl": "Voertuignaam"
+      },
+      "example": {
+        "en": "My Elroq",
+        "nl": "Mijn Elroq"
+      }
+    },
+    {
+      "name": "battery_percent",
+      "type": "number",
+      "title": {
+        "en": "Battery level (%)",
+        "nl": "Accuniveau (%)"
+      },
+      "example": 42
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

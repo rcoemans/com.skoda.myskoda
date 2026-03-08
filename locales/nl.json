@@ -1,0 +1,22 @@
+{
+  "pair": {
+    "login_failed": "Inloggen mislukt. Controleer je e-mailadres en wachtwoord.",
+    "no_vehicles": "Geen voertuigen gevonden in je MyŠkoda-account."
+  },
+  "device": {
+    "auth_required": "Authenticatie vereist. Koppel dit apparaat opnieuw.",
+    "auth_failed": "Authenticatie mislukt. Koppel dit apparaat opnieuw.",
+    "auth_expired": "Authenticatie verlopen. Koppel dit apparaat opnieuw."
+  },
+  "settings": {
+    "saved": "Instellingen opgeslagen.",
+    "poll_interval_label": "Poll-interval (minuten)",
+    "poll_interval_hint": "Hoe vaak voertuiggegevens worden ververst (in minuten).",
+    "low_battery_threshold_label": "Laag accuniveau-drempel (%)",
+    "low_battery_threshold_hint": "Accupercentage waaronder een melding voor laag accuniveau wordt geactiveerd.",
+    "home_latitude_label": "Thuislocatie breedtegraad",
+    "home_longitude_label": "Thuislocatie lengtegraad",
+    "home_radius_label": "Thuisradius (meters)",
+    "debug_logging_label": "Uitgebreide logging inschakelen"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Climate active",
+    "nl": "Klimaatregeling actief"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/climate.svg",
+  "insightsTitleTrue": {
+    "en": "Climate was activated",
+    "nl": "Klimaatregeling werd ingeschakeld"
+  },
+  "insightsTitleFalse": {
+    "en": "Climate was deactivated",
+    "nl": "Klimaatregeling werd uitgeschakeld"
+  }
+}

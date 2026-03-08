@@ -1,0 +1,34 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Connection status",
+    "nl": "Verbindingsstatus"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/connection.svg",
+  "values": [
+    {
+      "id": "online",
+      "title": {
+        "en": "Online",
+        "nl": "Online"
+      }
+    },
+    {
+      "id": "offline",
+      "title": {
+        "en": "Offline",
+        "nl": "Offline"
+      }
+    },
+    {
+      "id": "unknown",
+      "title": {
+        "en": "Unknown",
+        "nl": "Onbekend"
+      }
+    }
+  ]
+}

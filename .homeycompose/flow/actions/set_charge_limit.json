@@ -1,0 +1,33 @@
+{
+  "id": "set_charge_limit",
+  "title": {
+    "en": "Set charge limit",
+    "nl": "Laadlimiet instellen"
+  },
+  "titleFormatted": {
+    "en": "Set charge limit to [[limit]] %",
+    "nl": "Laadlimiet instellen op [[limit]] %"
+  },
+  "hint": {
+    "en": "Set the maximum charge level for the vehicle.",
+    "nl": "Stel het maximale laadniveau voor het voertuig in."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    },
+    {
+      "type": "number",
+      "name": "limit",
+      "title": {
+        "en": "Charge limit (%)",
+        "nl": "Laadlimiet (%)"
+      },
+      "min": 50,
+      "max": 100,
+      "step": 10
+    }
+  ]
+}

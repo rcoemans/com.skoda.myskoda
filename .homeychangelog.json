@@ -1,5 +1,6 @@
 {
   "1.0.0": {
-    "en": "First version!"
+    "en": "First version! Monitor battery level, charging status, location, vehicle state, and control charging and climatization from Homey flows.",
+    "nl": "Eerste versie! Monitor accuniveau, laadstatus, locatie, voertuigstatus, en bedien laden en klimaatregeling vanuit Homey-flows."
   }
 }

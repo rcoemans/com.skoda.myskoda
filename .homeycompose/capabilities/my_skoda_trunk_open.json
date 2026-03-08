@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Trunk open",
+    "nl": "Kofferbak open"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/trunk.svg",
+  "insightsTitleTrue": {
+    "en": "Trunk was opened",
+    "nl": "Kofferbak werd geopend"
+  },
+  "insightsTitleFalse": {
+    "en": "Trunk was closed",
+    "nl": "Kofferbak werd gesloten"
+  }
+}

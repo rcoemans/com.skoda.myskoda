@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Last vehicle update",
+    "nl": "Laatste voertuigupdate"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/clock.svg"
+}

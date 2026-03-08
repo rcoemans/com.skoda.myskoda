@@ -1,0 +1,56 @@
+{
+  "id": "battery_below_threshold",
+  "title": {
+    "en": "Battery drops below threshold",
+    "nl": "Accu daalt onder drempel"
+  },
+  "titleFormatted": {
+    "en": "Battery drops below [[threshold]] %",
+    "nl": "Accu daalt onder [[threshold]] %"
+  },
+  "hint": {
+    "en": "Triggers when the battery level drops below the specified threshold.",
+    "nl": "Wordt geactiveerd wanneer het accuniveau onder de opgegeven drempel daalt."
+  },
+  "tokens": [
+    {
+      "name": "vehicle_name",
+      "type": "string",
+      "title": {
+        "en": "Vehicle name",
+        "nl": "Voertuignaam"
+      },
+      "example": {
+        "en": "My Elroq",
+        "nl": "Mijn Elroq"
+      }
+    },
+    {
+      "name": "battery_percent",
+      "type": "number",
+      "title": {
+        "en": "Battery level (%)",
+        "nl": "Accuniveau (%)"
+      },
+      "example": 15
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    },
+    {
+      "type": "number",
+      "name": "threshold",
+      "title": {
+        "en": "Battery threshold (%)",
+        "nl": "Accudrempel (%)"
+      },
+      "min": 1,
+      "max": 99,
+      "step": 1
+    }
+  ]
+}

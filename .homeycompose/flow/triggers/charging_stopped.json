@@ -1,0 +1,45 @@
+{
+  "id": "charging_stopped",
+  "title": {
+    "en": "Charging stopped",
+    "nl": "Laden gestopt"
+  },
+  "titleFormatted": {
+    "en": "Charging stopped",
+    "nl": "Laden gestopt"
+  },
+  "hint": {
+    "en": "Triggers when the vehicle stops charging.",
+    "nl": "Wordt geactiveerd wanneer het voertuig stopt met laden."
+  },
+  "tokens": [
+    {
+      "name": "vehicle_name",
+      "type": "string",
+      "title": {
+        "en": "Vehicle name",
+        "nl": "Voertuignaam"
+      },
+      "example": {
+        "en": "My Elroq",
+        "nl": "Mijn Elroq"
+      }
+    },
+    {
+      "name": "battery_percent",
+      "type": "number",
+      "title": {
+        "en": "Battery level (%)",
+        "nl": "Accuniveau (%)"
+      },
+      "example": 80
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

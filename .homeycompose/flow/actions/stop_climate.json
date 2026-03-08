@@ -1,0 +1,22 @@
+{
+  "id": "stop_climate",
+  "title": {
+    "en": "Stop climatization",
+    "nl": "Klimaatregeling stoppen"
+  },
+  "titleFormatted": {
+    "en": "Stop climatization",
+    "nl": "Klimaatregeling stoppen"
+  },
+  "hint": {
+    "en": "Stop the vehicle's air conditioning.",
+    "nl": "Stop de airconditioning van het voertuig."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

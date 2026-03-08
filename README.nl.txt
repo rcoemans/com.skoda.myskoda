@@ -1,0 +1,36 @@
+MyŠkoda-integratie voor Homey.
+
+Verbind je Škoda-voertuig met Homey via het MyŠkoda-platform. Monitor het accuniveau, de laadstatus, locatie en voertuigstatus, en bedien functies zoals laden en klimaatregeling rechtstreeks vanuit Homey-flows.
+
+Functies:
+- Realtime voertuiggegevens: accuniveau, laadstatus, laadvermogen, resterende laadtijd, geschat bereik
+- Voertuigstatus: vergrendeld/ontgrendeld, deuren, ramen, kofferbak, motorkap
+- Klimaatregeling: start/stop airconditioning met doeltemperatuur
+- Locatie tracking: GPS-coördinaten en parkeeradres
+- Verbindingsstatus: online/offline monitoring
+- Buitentemperatuur en kilometerstand
+- Geofence-triggers: voertuig thuisgekomen / van huis vertrokken
+- 5 flow-triggerkaarten: laden gestart/gestopt, accu onder drempel, voertuig thuisgekomen/vertrokken
+- 3 flow-conditiekaarten met inversie-ondersteuning (is/is niet): laden, lader aangesloten, voertuig vergrendeld
+- 6 flow-actiekaarten: gegevens vernieuwen, laden starten/stoppen, klimaatregeling starten/stoppen, laadlimiet instellen
+- Volledig gelokaliseerd in het Engels en Nederlands
+
+Ondersteunde voertuigen:
+- Škoda Elroq, Enyaq, Enyaq Coupé (volledige EV-ondersteuning)
+- Škoda Superb iV, Octavia iV (PHEV — laad- en klimaatfuncties)
+- Andere MyŠkoda-verbonden voertuigen (basisstatus kan werken)
+
+Installatie:
+1. Installeer de app op je Homey
+2. Voeg een nieuw apparaat toe: MyŠkoda > Auto
+3. Voer je MyŠkoda-e-mailadres en wachtwoord in
+4. Selecteer je voertuig(en) uit de lijst
+5. Het apparaat begint automatisch met het ophalen van gegevens
+6. Pas het poll-interval en de thuislocatie aan in de apparaatinstellingen
+
+Bekende beperkingen:
+- De MyŠkoda-API is cloudgebaseerd — het voertuig moet een actieve internetverbinding hebben
+- Het poll-interval is beperkt tot minimaal 5 minuten om rate limiting te voorkomen
+- Voertuigacties kunnen 30 seconden tot enkele minuten duren voordat ze effect hebben
+- Sommige functies zijn mogelijk niet beschikbaar voor alle voertuigmodellen
+- Na app-updates moet je mogelijk het apparaat verwijderen en opnieuw toevoegen voor nieuwe functies

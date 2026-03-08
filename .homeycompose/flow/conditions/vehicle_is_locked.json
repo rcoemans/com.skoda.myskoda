@@ -1,0 +1,22 @@
+{
+  "id": "vehicle_is_locked",
+  "title": {
+    "en": "Vehicle !{{is|is not}} locked",
+    "nl": "Voertuig !{{is|is niet}} vergrendeld"
+  },
+  "titleFormatted": {
+    "en": "Vehicle !{{is|is not}} locked",
+    "nl": "Voertuig !{{is|is niet}} vergrendeld"
+  },
+  "hint": {
+    "en": "Check if the vehicle is locked.",
+    "nl": "Controleer of het voertuig vergrendeld is."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

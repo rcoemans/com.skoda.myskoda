@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Target battery level",
+    "nl": "Doelaccuniveau"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/battery-target.svg",
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "min": 0,
+  "max": 100
+}

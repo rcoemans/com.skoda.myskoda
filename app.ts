@@ -2,13 +2,100 @@
 
 import Homey from 'homey';
 
-module.exports = class MyApp extends Homey.App {
+class MySkodaApp extends Homey.App {
 
-  /**
-   * onInit is called when the app is initialized.
-   */
   async onInit() {
-    this.log('MyApp has been initialized');
+    this.log('MyŠkoda app has been initialized');
+
+    this._registerFlowActions();
+    this._registerFlowConditions();
+    this._registerFlowTriggers();
+  }
+
+  private _registerFlowActions(): void {
+    // Refresh vehicle data
+    this.homey.flow.getActionCard('refresh_vehicle')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        await device.refreshVehicleData();
+      });
+
+    // Start charging
+    this.homey.flow.getActionCard('start_charging')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        await device.startCharging();
+      });
+
+    // Stop charging
+    this.homey.flow.getActionCard('stop_charging')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        await device.stopCharging();
+      });
+
+    // Start climatization
+    this.homey.flow.getActionCard('start_climate')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        const temperature = args.temperature;
+        await device.startClimate(temperature);
+      });
+
+    // Stop climatization
+    this.homey.flow.getActionCard('stop_climate')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        await device.stopClimate();
+      });
+
+    // Set charge limit
+    this.homey.flow.getActionCard('set_charge_limit')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        const limit = args.limit;
+        await device.setChargeLimit(limit);
+      });
+
+    this.log('Flow action cards registered');
+  }
+
+  private _registerFlowConditions(): void {
+    // Vehicle is charging
+    this.homey.flow.getConditionCard('vehicle_is_charging')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        const chargingState = device.getCapabilityValue('my_skoda_charging_state');
+        return chargingState === 'charging';
+      });
+
+    // Charger is connected
+    this.homey.flow.getConditionCard('charger_is_connected')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        return device.getCapabilityValue('my_skoda_charger_connected') === true;
+      });
+
+    // Vehicle is locked
+    this.homey.flow.getConditionCard('vehicle_is_locked')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        return device.getCapabilityValue('locked') === true;
+      });
+
+    this.log('Flow condition cards registered');
+  }
+
+  private _registerFlowTriggers(): void {
+    // Battery below threshold needs a RunListener to match the user-configured threshold arg
+    this.homey.flow.getDeviceTriggerCard('battery_below_threshold')
+      .registerRunListener(async (args: any, state: any) => {
+        return state.battery_percent < args.threshold;
+      });
+
+    this.log('Flow trigger cards registered');
   }
 
 }
+
+module.exports = MySkodaApp;
