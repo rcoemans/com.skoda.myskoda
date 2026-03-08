@@ -1,0 +1,28 @@
+{
+  "id": "com.skoda.myskoda",
+  "version": "1.0.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "MyŠkoda"
+  },
+  "description": {
+    "en": "Connect your Škoda vehicle to Homey using the MyŠkoda platform. Monitor battery level, charging status, location, and vehicle state, and control features like charging and climatization directly from Homey flows."
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Robert Coemans",
+    "email": "r.coemans@hotmail.com"
+  }
+}
