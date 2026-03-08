@@ -4,6 +4,11 @@
     "nl": "Auto"
   },
   "class": "other",
+  "energy": {
+    "batteries": [
+      "INTERNAL"
+    ]
+  },
   "capabilities": [
     "measure_battery",
     "locked",

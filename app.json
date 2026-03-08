@@ -1,3 +1,1060 @@
 {
-  "_comment": "This file is generated. Please edit .homeycompose/app.json instead."
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.skoda.myskoda",
+  "version": "1.0.0",
+  "compatibility": ">=10.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "MyŠkoda",
+    "nl": "MyŠkoda"
+  },
+  "description": {
+    "en": "Connect your Škoda vehicle to Homey using the MyŠkoda platform. Monitor battery level, charging status, location, and vehicle state, and control features like charging and climatization directly from Homey flows.",
+    "nl": "Verbind je Škoda-voertuig met Homey via het MyŠkoda-platform. Monitor het accuniveau, de laadstatus, locatie en voertuigstatus, en bedien functies zoals laden en klimaatregeling rechtstreeks vanuit Homey-flows."
+  },
+  "category": [
+    "energy"
+  ],
+  "brandColor": "#0E3A2F",
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Robert Coemans",
+    "email": "r.coemans@hotmail.com"
+  },
+  "homepage": "https://github.com/rcoemans/com.skoda.myskoda",
+  "support": "https://github.com/rcoemans/com.skoda.myskoda/issues",
+  "source": "https://github.com/rcoemans/com.skoda.myskoda",
+  "bugs": {
+    "url": "https://github.com/rcoemans/com.skoda.myskoda/issues"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "battery_below_threshold",
+        "title": {
+          "en": "Battery drops below threshold",
+          "nl": "Accu daalt onder drempel"
+        },
+        "titleFormatted": {
+          "en": "Battery drops below [[threshold]] %",
+          "nl": "Accu daalt onder [[threshold]] %"
+        },
+        "hint": {
+          "en": "Triggers when the battery level drops below the specified threshold.",
+          "nl": "Wordt geactiveerd wanneer het accuniveau onder de opgegeven drempel daalt."
+        },
+        "tokens": [
+          {
+            "name": "vehicle_name",
+            "type": "string",
+            "title": {
+              "en": "Vehicle name",
+              "nl": "Voertuignaam"
+            },
+            "example": {
+              "en": "My Elroq",
+              "nl": "Mijn Elroq"
+            }
+          },
+          {
+            "name": "battery_percent",
+            "type": "number",
+            "title": {
+              "en": "Battery level (%)",
+              "nl": "Accuniveau (%)"
+            },
+            "example": 15
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          },
+          {
+            "type": "number",
+            "name": "threshold",
+            "title": {
+              "en": "Battery threshold (%)",
+              "nl": "Accudrempel (%)"
+            },
+            "min": 1,
+            "max": 99,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "id": "charging_started",
+        "title": {
+          "en": "Charging started",
+          "nl": "Laden gestart"
+        },
+        "titleFormatted": {
+          "en": "Charging started",
+          "nl": "Laden gestart"
+        },
+        "hint": {
+          "en": "Triggers when the vehicle starts charging.",
+          "nl": "Wordt geactiveerd wanneer het voertuig begint met laden."
+        },
+        "tokens": [
+          {
+            "name": "vehicle_name",
+            "type": "string",
+            "title": {
+              "en": "Vehicle name",
+              "nl": "Voertuignaam"
+            },
+            "example": {
+              "en": "My Elroq",
+              "nl": "Mijn Elroq"
+            }
+          },
+          {
+            "name": "battery_percent",
+            "type": "number",
+            "title": {
+              "en": "Battery level (%)",
+              "nl": "Accuniveau (%)"
+            },
+            "example": 42
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "charging_stopped",
+        "title": {
+          "en": "Charging stopped",
+          "nl": "Laden gestopt"
+        },
+        "titleFormatted": {
+          "en": "Charging stopped",
+          "nl": "Laden gestopt"
+        },
+        "hint": {
+          "en": "Triggers when the vehicle stops charging.",
+          "nl": "Wordt geactiveerd wanneer het voertuig stopt met laden."
+        },
+        "tokens": [
+          {
+            "name": "vehicle_name",
+            "type": "string",
+            "title": {
+              "en": "Vehicle name",
+              "nl": "Voertuignaam"
+            },
+            "example": {
+              "en": "My Elroq",
+              "nl": "Mijn Elroq"
+            }
+          },
+          {
+            "name": "battery_percent",
+            "type": "number",
+            "title": {
+              "en": "Battery level (%)",
+              "nl": "Accuniveau (%)"
+            },
+            "example": 80
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "vehicle_arrived_home",
+        "title": {
+          "en": "Vehicle arrived home",
+          "nl": "Voertuig is thuisgekomen"
+        },
+        "titleFormatted": {
+          "en": "Vehicle arrived home",
+          "nl": "Voertuig is thuisgekomen"
+        },
+        "hint": {
+          "en": "Triggers when the vehicle enters the home geofence.",
+          "nl": "Wordt geactiveerd wanneer het voertuig de thuisgeofence binnenkomt."
+        },
+        "tokens": [
+          {
+            "name": "vehicle_name",
+            "type": "string",
+            "title": {
+              "en": "Vehicle name",
+              "nl": "Voertuignaam"
+            },
+            "example": {
+              "en": "My Elroq",
+              "nl": "Mijn Elroq"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "vehicle_left_home",
+        "title": {
+          "en": "Vehicle left home",
+          "nl": "Voertuig is van huis vertrokken"
+        },
+        "titleFormatted": {
+          "en": "Vehicle left home",
+          "nl": "Voertuig is van huis vertrokken"
+        },
+        "hint": {
+          "en": "Triggers when the vehicle leaves the home geofence.",
+          "nl": "Wordt geactiveerd wanneer het voertuig de thuisgeofence verlaat."
+        },
+        "tokens": [
+          {
+            "name": "vehicle_name",
+            "type": "string",
+            "title": {
+              "en": "Vehicle name",
+              "nl": "Voertuignaam"
+            },
+            "example": {
+              "en": "My Elroq",
+              "nl": "Mijn Elroq"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "charger_is_connected",
+        "title": {
+          "en": "Charger !{{is|is not}} connected",
+          "nl": "Lader !{{is|is niet}} aangesloten"
+        },
+        "titleFormatted": {
+          "en": "Charger !{{is|is not}} connected",
+          "nl": "Lader !{{is|is niet}} aangesloten"
+        },
+        "hint": {
+          "en": "Check if the charger is connected to the vehicle.",
+          "nl": "Controleer of de lader is aangesloten op het voertuig."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "vehicle_is_charging",
+        "title": {
+          "en": "Vehicle !{{is|is not}} charging",
+          "nl": "Voertuig !{{is|is niet}} aan het laden"
+        },
+        "titleFormatted": {
+          "en": "Vehicle !{{is|is not}} charging",
+          "nl": "Voertuig !{{is|is niet}} aan het laden"
+        },
+        "hint": {
+          "en": "Check if the vehicle is currently charging.",
+          "nl": "Controleer of het voertuig momenteel aan het laden is."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "vehicle_is_locked",
+        "title": {
+          "en": "Vehicle !{{is|is not}} locked",
+          "nl": "Voertuig !{{is|is niet}} vergrendeld"
+        },
+        "titleFormatted": {
+          "en": "Vehicle !{{is|is not}} locked",
+          "nl": "Voertuig !{{is|is niet}} vergrendeld"
+        },
+        "hint": {
+          "en": "Check if the vehicle is locked.",
+          "nl": "Controleer of het voertuig vergrendeld is."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "refresh_vehicle",
+        "title": {
+          "en": "Refresh vehicle data",
+          "nl": "Voertuiggegevens vernieuwen"
+        },
+        "titleFormatted": {
+          "en": "Refresh vehicle data",
+          "nl": "Voertuiggegevens vernieuwen"
+        },
+        "hint": {
+          "en": "Manually refresh all vehicle data from the MyŠkoda cloud.",
+          "nl": "Vernieuw handmatig alle voertuiggegevens vanuit de MyŠkoda-cloud."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "set_charge_limit",
+        "title": {
+          "en": "Set charge limit",
+          "nl": "Laadlimiet instellen"
+        },
+        "titleFormatted": {
+          "en": "Set charge limit to [[limit]] %",
+          "nl": "Laadlimiet instellen op [[limit]] %"
+        },
+        "hint": {
+          "en": "Set the maximum charge level for the vehicle.",
+          "nl": "Stel het maximale laadniveau voor het voertuig in."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          },
+          {
+            "type": "number",
+            "name": "limit",
+            "title": {
+              "en": "Charge limit (%)",
+              "nl": "Laadlimiet (%)"
+            },
+            "min": 50,
+            "max": 100,
+            "step": 10
+          }
+        ]
+      },
+      {
+        "id": "start_charging",
+        "title": {
+          "en": "Start charging",
+          "nl": "Laden starten"
+        },
+        "titleFormatted": {
+          "en": "Start charging",
+          "nl": "Laden starten"
+        },
+        "hint": {
+          "en": "Start charging the vehicle.",
+          "nl": "Start het laden van het voertuig."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "start_climate",
+        "title": {
+          "en": "Start climatization",
+          "nl": "Klimaatregeling starten"
+        },
+        "titleFormatted": {
+          "en": "Start climatization at [[temperature]] °C",
+          "nl": "Klimaatregeling starten op [[temperature]] °C"
+        },
+        "hint": {
+          "en": "Start the vehicle's air conditioning at the specified temperature.",
+          "nl": "Start de airconditioning van het voertuig op de opgegeven temperatuur."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          },
+          {
+            "type": "number",
+            "name": "temperature",
+            "title": {
+              "en": "Temperature (°C)",
+              "nl": "Temperatuur (°C)"
+            },
+            "min": 16,
+            "max": 30,
+            "step": 0.5
+          }
+        ]
+      },
+      {
+        "id": "stop_charging",
+        "title": {
+          "en": "Stop charging",
+          "nl": "Laden stoppen"
+        },
+        "titleFormatted": {
+          "en": "Stop charging",
+          "nl": "Laden stoppen"
+        },
+        "hint": {
+          "en": "Stop charging the vehicle.",
+          "nl": "Stop het laden van het voertuig."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "stop_climate",
+        "title": {
+          "en": "Stop climatization",
+          "nl": "Klimaatregeling stoppen"
+        },
+        "titleFormatted": {
+          "en": "Stop climatization",
+          "nl": "Klimaatregeling stoppen"
+        },
+        "hint": {
+          "en": "Stop the vehicle's air conditioning.",
+          "nl": "Stop de airconditioning van het voertuig."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Car",
+        "nl": "Auto"
+      },
+      "class": "other",
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "capabilities": [
+        "measure_battery",
+        "locked",
+        "measure_temperature",
+        "my_skoda_connection_status",
+        "my_skoda_last_vehicle_update",
+        "my_skoda_mileage_km",
+        "my_skoda_range_km",
+        "my_skoda_charger_connected",
+        "my_skoda_charging_state",
+        "my_skoda_charge_power_kw",
+        "my_skoda_remaining_charge_minutes",
+        "my_skoda_target_battery_percent",
+        "my_skoda_doors_open",
+        "my_skoda_windows_open",
+        "my_skoda_trunk_open",
+        "my_skoda_bonnet_open",
+        "my_skoda_climate_active",
+        "my_skoda_latitude",
+        "my_skoda_longitude",
+        "my_skoda_parking_address"
+      ],
+      "capabilitiesOptions": {
+        "measure_battery": {
+          "title": {
+            "en": "Battery level",
+            "nl": "Accuniveau"
+          }
+        },
+        "locked": {
+          "title": {
+            "en": "Locked",
+            "nl": "Vergrendeld"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+            "en": "Outside temperature",
+            "nl": "Buitentemperatuur"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/car/assets/images/small.png",
+        "large": "/drivers/car/assets/images/large.png",
+        "xlarge": "/drivers/car/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "login",
+          "template": "login_credentials",
+          "options": {
+            "title": {
+              "en": "Log in to MyŠkoda",
+              "nl": "Inloggen bij MyŠkoda"
+            },
+            "usernameLabel": {
+              "en": "Email address",
+              "nl": "E-mailadres"
+            },
+            "usernamePlaceholder": {
+              "en": "name@example.com",
+              "nl": "naam@voorbeeld.nl"
+            },
+            "passwordLabel": {
+              "en": "Password",
+              "nl": "Wachtwoord"
+            },
+            "passwordPlaceholder": {
+              "en": "Password",
+              "nl": "Wachtwoord"
+            }
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "options": {
+            "title": {
+              "en": "Select your vehicle(s)",
+              "nl": "Selecteer je voertuig(en)"
+            }
+          },
+          "navigation": {
+            "prev": "login"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices",
+          "options": {
+            "title": {
+              "en": "Adding vehicle(s)…",
+              "nl": "Voertuig(en) toevoegen…"
+            }
+          }
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General",
+            "nl": "Algemeen"
+          },
+          "children": [
+            {
+              "id": "poll_interval",
+              "type": "number",
+              "label": {
+                "en": "Poll interval (minutes)",
+                "nl": "Poll-interval (minuten)"
+              },
+              "value": 15,
+              "min": 5,
+              "max": 60,
+              "hint": {
+                "en": "How often to refresh vehicle data (in minutes).",
+                "nl": "Hoe vaak voertuiggegevens worden ververst (in minuten)."
+              }
+            },
+            {
+              "id": "low_battery_threshold",
+              "type": "number",
+              "label": {
+                "en": "Low battery threshold (%)",
+                "nl": "Laag accuniveau-drempel (%)"
+              },
+              "value": 30,
+              "min": 5,
+              "max": 90,
+              "hint": {
+                "en": "Battery percentage below which a low battery alert triggers.",
+                "nl": "Accupercentage waaronder een melding voor laag accuniveau wordt geactiveerd."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Home location",
+            "nl": "Thuislocatie"
+          },
+          "children": [
+            {
+              "id": "home_latitude",
+              "type": "number",
+              "label": {
+                "en": "Home latitude",
+                "nl": "Thuislocatie breedtegraad"
+              },
+              "value": 0,
+              "hint": {
+                "en": "Latitude of your home for arrival/departure detection.",
+                "nl": "Breedtegraad van je thuis voor aankomst-/vertrekdetectie."
+              }
+            },
+            {
+              "id": "home_longitude",
+              "type": "number",
+              "label": {
+                "en": "Home longitude",
+                "nl": "Thuislocatie lengtegraad"
+              },
+              "value": 0,
+              "hint": {
+                "en": "Longitude of your home for arrival/departure detection.",
+                "nl": "Lengtegraad van je thuis voor aankomst-/vertrekdetectie."
+              }
+            },
+            {
+              "id": "home_radius",
+              "type": "number",
+              "label": {
+                "en": "Home radius (meters)",
+                "nl": "Thuisradius (meters)"
+              },
+              "value": 200,
+              "min": 50,
+              "max": 5000,
+              "hint": {
+                "en": "Radius around your home coordinates to determine if the vehicle is 'at home'.",
+                "nl": "Straal rond je thuiscoördinaten om te bepalen of het voertuig 'thuis' is."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics",
+            "nl": "Diagnostiek"
+          },
+          "children": [
+            {
+              "id": "debug_logging",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable debug logging",
+                "nl": "Uitgebreide logging inschakelen"
+              },
+              "value": false,
+              "hint": {
+                "en": "Log detailed API responses for troubleshooting. Sensitive data will be redacted.",
+                "nl": "Log gedetailleerde API-antwoorden voor probleemoplossing. Gevoelige gegevens worden afgeschermd."
+              }
+            }
+          ]
+        }
+      ],
+      "id": "car"
+    }
+  ],
+  "capabilities": {
+    "my_skoda_bonnet_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Bonnet open",
+        "nl": "Motorkap open"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/bonnet.svg",
+      "insightsTitleTrue": {
+        "en": "Bonnet was opened",
+        "nl": "Motorkap werd geopend"
+      },
+      "insightsTitleFalse": {
+        "en": "Bonnet was closed",
+        "nl": "Motorkap werd gesloten"
+      }
+    },
+    "my_skoda_charge_power_kw": {
+      "type": "number",
+      "title": {
+        "en": "Charging power",
+        "nl": "Laadvermogen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/power.svg",
+      "units": {
+        "en": "kW",
+        "nl": "kW"
+      },
+      "decimals": 1
+    },
+    "my_skoda_charger_connected": {
+      "type": "boolean",
+      "title": {
+        "en": "Charger connected",
+        "nl": "Lader aangesloten"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/plug.svg",
+      "insightsTitleTrue": {
+        "en": "Charger was connected",
+        "nl": "Lader was aangesloten"
+      },
+      "insightsTitleFalse": {
+        "en": "Charger was disconnected",
+        "nl": "Lader was losgekoppeld"
+      }
+    },
+    "my_skoda_charging_state": {
+      "type": "enum",
+      "title": {
+        "en": "Charging state",
+        "nl": "Laadstatus"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/charging.svg",
+      "values": [
+        {
+          "id": "ready_for_charging",
+          "title": {
+            "en": "Ready for charging",
+            "nl": "Klaar om te laden"
+          }
+        },
+        {
+          "id": "charging",
+          "title": {
+            "en": "Charging",
+            "nl": "Aan het laden"
+          }
+        },
+        {
+          "id": "conserving",
+          "title": {
+            "en": "Conserving",
+            "nl": "Conserveren"
+          }
+        },
+        {
+          "id": "connect_cable",
+          "title": {
+            "en": "Connect cable",
+            "nl": "Kabel aansluiten"
+          }
+        },
+        {
+          "id": "charging_interrupted",
+          "title": {
+            "en": "Charging interrupted",
+            "nl": "Laden onderbroken"
+          }
+        },
+        {
+          "id": "error",
+          "title": {
+            "en": "Error",
+            "nl": "Fout"
+          }
+        },
+        {
+          "id": "unknown",
+          "title": {
+            "en": "Unknown",
+            "nl": "Onbekend"
+          }
+        }
+      ]
+    },
+    "my_skoda_climate_active": {
+      "type": "boolean",
+      "title": {
+        "en": "Climate active",
+        "nl": "Klimaatregeling actief"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/climate.svg",
+      "insightsTitleTrue": {
+        "en": "Climate was activated",
+        "nl": "Klimaatregeling werd ingeschakeld"
+      },
+      "insightsTitleFalse": {
+        "en": "Climate was deactivated",
+        "nl": "Klimaatregeling werd uitgeschakeld"
+      }
+    },
+    "my_skoda_connection_status": {
+      "type": "enum",
+      "title": {
+        "en": "Connection status",
+        "nl": "Verbindingsstatus"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/connection.svg",
+      "values": [
+        {
+          "id": "online",
+          "title": {
+            "en": "Online",
+            "nl": "Online"
+          }
+        },
+        {
+          "id": "offline",
+          "title": {
+            "en": "Offline",
+            "nl": "Offline"
+          }
+        },
+        {
+          "id": "unknown",
+          "title": {
+            "en": "Unknown",
+            "nl": "Onbekend"
+          }
+        }
+      ]
+    },
+    "my_skoda_doors_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Doors open",
+        "nl": "Deuren open"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/door.svg",
+      "insightsTitleTrue": {
+        "en": "A door was opened",
+        "nl": "Een deur werd geopend"
+      },
+      "insightsTitleFalse": {
+        "en": "All doors were closed",
+        "nl": "Alle deuren zijn gesloten"
+      }
+    },
+    "my_skoda_last_vehicle_update": {
+      "type": "string",
+      "title": {
+        "en": "Last vehicle update",
+        "nl": "Laatste voertuigupdate"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/clock.svg"
+    },
+    "my_skoda_latitude": {
+      "type": "number",
+      "title": {
+        "en": "Latitude",
+        "nl": "Breedtegraad"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/location.svg",
+      "units": {
+        "en": "°",
+        "nl": "°"
+      },
+      "decimals": 6
+    },
+    "my_skoda_longitude": {
+      "type": "number",
+      "title": {
+        "en": "Longitude",
+        "nl": "Lengtegraad"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/location.svg",
+      "units": {
+        "en": "°",
+        "nl": "°"
+      },
+      "decimals": 6
+    },
+    "my_skoda_mileage_km": {
+      "type": "number",
+      "title": {
+        "en": "Mileage",
+        "nl": "Kilometerstand"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/mileage.svg",
+      "units": {
+        "en": "km",
+        "nl": "km"
+      }
+    },
+    "my_skoda_parking_address": {
+      "type": "string",
+      "title": {
+        "en": "Parking address",
+        "nl": "Parkeeradres"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/location.svg"
+    },
+    "my_skoda_range_km": {
+      "type": "number",
+      "title": {
+        "en": "Range",
+        "nl": "Bereik"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/range.svg",
+      "units": {
+        "en": "km",
+        "nl": "km"
+      }
+    },
+    "my_skoda_remaining_charge_minutes": {
+      "type": "number",
+      "title": {
+        "en": "Remaining charge time",
+        "nl": "Resterende laadtijd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/clock.svg",
+      "units": {
+        "en": "min",
+        "nl": "min"
+      }
+    },
+    "my_skoda_target_battery_percent": {
+      "type": "number",
+      "title": {
+        "en": "Target battery level",
+        "nl": "Doelaccuniveau"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/battery-target.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "min": 0,
+      "max": 100
+    },
+    "my_skoda_trunk_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Trunk open",
+        "nl": "Kofferbak open"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/trunk.svg",
+      "insightsTitleTrue": {
+        "en": "Trunk was opened",
+        "nl": "Kofferbak werd geopend"
+      },
+      "insightsTitleFalse": {
+        "en": "Trunk was closed",
+        "nl": "Kofferbak werd gesloten"
+      }
+    },
+    "my_skoda_windows_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Windows open",
+        "nl": "Ramen open"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/window.svg",
+      "insightsTitleTrue": {
+        "en": "A window was opened",
+        "nl": "Een raam werd geopend"
+      },
+      "insightsTitleFalse": {
+        "en": "All windows were closed",
+        "nl": "Alle ramen zijn gesloten"
+      }
+    }
+  }
 }
