@@ -17,6 +17,8 @@ export class VehicleNormalizer {
     drivingRange: any,
     positions: any,
     connectionStatus: any,
+    maintenanceReport?: any,
+    health?: any,
   ): NormalizedVehicleState {
     const state: NormalizedVehicleState = {
       vin,
@@ -31,6 +33,7 @@ export class VehicleNormalizer {
     VehicleNormalizer._applyDrivingRange(state, drivingRange);
     VehicleNormalizer._applyPositions(state, positions);
     VehicleNormalizer._applyConnectionStatus(state, connectionStatus);
+    VehicleNormalizer._applyMileage(state, maintenanceReport, health);
 
     return state;
   }
@@ -51,10 +54,6 @@ export class VehicleNormalizer {
 
     if (status.carCapturedTimestamp) {
       state.lastUpdatedAt = status.carCapturedTimestamp;
-    }
-
-    if (status.mileageInKm != null) {
-      state.mileageKm = status.mileageInKm;
     }
 
     const overall = status.overall;
@@ -200,6 +199,29 @@ export class VehicleNormalizer {
       state.connectionStatus = cs.connectionStatus === 'ONLINE' ? 'online' : 'offline';
     } else {
       state.connectionStatus = 'unknown';
+    }
+  }
+
+  /**
+   * Extract mileage from maintenance report (primary) or health endpoint (fallback).
+   * The vehicle-status endpoint does NOT contain mileage.
+   */
+  private static _applyMileage(state: NormalizedVehicleState, maintenanceReport: any, health: any): void {
+    // Primary: maintenance report
+    if (maintenanceReport && maintenanceReport.mileageInKm != null) {
+      const km = maintenanceReport.mileageInKm;
+      if (typeof km === 'number' && km > 0 && km < 400_000_000) {
+        state.mileageKm = km;
+        return;
+      }
+    }
+
+    // Fallback: health endpoint
+    if (health && health.mileageInKm != null) {
+      const km = health.mileageInKm;
+      if (typeof km === 'number' && km > 0 && km < 400_000_000) {
+        state.mileageKm = km;
+      }
     }
   }
 }

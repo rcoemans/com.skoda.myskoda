@@ -132,6 +132,16 @@ export class SkodaApiClient {
     return this._get(`/v2/connection-status/${vin}/readiness`);
   }
 
+  // --- Maintenance & Health ---
+
+  async getMaintenanceReport(vin: string): Promise<any> {
+    return this._get(`/v3/vehicle-maintenance/vehicles/${vin}/report`);
+  }
+
+  async getHealth(vin: string): Promise<any> {
+    return this._get(`/v1/vehicle-health-report/warning-lights/${vin}`);
+  }
+
   // --- Actions ---
 
   async startCharging(vin: string): Promise<void> {

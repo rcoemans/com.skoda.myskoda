@@ -5,11 +5,27 @@ import Homey from 'homey';
 class MySkodaApp extends Homey.App {
 
   async onInit() {
-    this.log('MyŠkoda app has been initialized');
+    this.log('MyŠkoda app is starting...');
 
-    this._registerFlowActions();
-    this._registerFlowConditions();
-    this._registerFlowTriggers();
+    try {
+      this._registerFlowActions();
+    } catch (err: any) {
+      this.error('Failed to register flow action cards:', err.message);
+    }
+
+    try {
+      this._registerFlowConditions();
+    } catch (err: any) {
+      this.error('Failed to register flow condition cards:', err.message);
+    }
+
+    try {
+      this._registerFlowTriggers();
+    } catch (err: any) {
+      this.error('Failed to register flow trigger cards:', err.message);
+    }
+
+    this.log('MyŠkoda app initialized');
   }
 
   private _registerFlowActions(): void {

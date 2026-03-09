@@ -100,7 +100,7 @@ class CarDevice extends Homey.Device {
 
     try {
       // Fetch all endpoints in parallel
-      const [info, status, charging, airConditioning, drivingRange, positions, connectionStatus] = await Promise.allSettled([
+      const [info, status, charging, airConditioning, drivingRange, positions, connectionStatus, maintenanceReport, health] = await Promise.allSettled([
         this.apiClient.getVehicleInfo(vin),
         this.apiClient.getVehicleStatus(vin),
         this.apiClient.getCharging(vin),
@@ -108,6 +108,8 @@ class CarDevice extends Homey.Device {
         this.apiClient.getDrivingRange(vin),
         this.apiClient.getPositions(vin),
         this.apiClient.getConnectionStatus(vin),
+        this.apiClient.getMaintenanceReport(vin),
+        this.apiClient.getHealth(vin),
       ]);
 
       const state = VehicleNormalizer.normalize(
@@ -119,6 +121,8 @@ class CarDevice extends Homey.Device {
         drivingRange.status === 'fulfilled' ? drivingRange.value : null,
         positions.status === 'fulfilled' ? positions.value : null,
         connectionStatus.status === 'fulfilled' ? connectionStatus.value : null,
+        maintenanceReport.status === 'fulfilled' ? maintenanceReport.value : null,
+        health.status === 'fulfilled' ? health.value : null,
       );
 
       // Update refresh token if it changed
