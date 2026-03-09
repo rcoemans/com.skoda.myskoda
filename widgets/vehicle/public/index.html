@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <script type="text/javascript" src="/homey.js" data-origin="widget"></script>
   <style>
     :root {
       color-scheme: light dark;
@@ -11,33 +10,28 @@
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: transparent;
-      color: var(--homey-color-text, #ffffff);
+      background: var(--homey-background-color, transparent);
+      color: var(--homey-text-color, #333333);
     }
 
     .widget {
-      min-height: 100vh;
-      padding: 14px;
+      padding: var(--homey-space-14, 14px);
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      background:
-        radial-gradient(circle at top right, rgba(14, 58, 47, 0.22), transparent 45%),
-        linear-gradient(180deg, rgba(14, 58, 47, 0.20), rgba(14, 58, 47, 0.08));
-      border-radius: 18px;
-      overflow: hidden;
+      gap: var(--homey-space-12, 12px);
     }
 
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: var(--homey-space-12, 12px);
     }
 
     .title-block {
@@ -45,46 +39,44 @@
     }
 
     .eyebrow {
-      font-size: 11px;
+      font-size: var(--homey-text-xs-size, 11px);
+      font-weight: var(--homey-text-xs-weight, 500);
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 0.65;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
       margin-bottom: 2px;
     }
 
     .title {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.2;
+      font-size: var(--homey-text-xl-size, 20px);
+      font-weight: var(--homey-text-xl-weight, 700);
+      line-height: var(--homey-text-xl-line-height, 1.2);
+      color: var(--homey-text-color, #333333);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .connection {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: var(--homey-border-radius-full, 999px);
+      font-size: var(--homey-text-xs-size, 12px);
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.12);
+      background: var(--homey-color-mono-100, rgba(0,0,0,0.06));
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
       text-transform: capitalize;
       white-space: nowrap;
     }
 
     .connection.online {
-      background: rgba(44, 187, 99, 0.18);
-      color: #6cf0a1;
-    }
-
-    .connection.offline,
-    .connection.unknown {
-      background: rgba(255, 255, 255, 0.12);
+      background: var(--homey-color-green-050, rgba(44,187,99,0.15));
+      color: var(--homey-color-green-500, #2cbb63);
     }
 
     .hero {
       display: grid;
       grid-template-columns: auto 1fr;
-      gap: 14px;
+      gap: var(--homey-space-14, 14px);
       align-items: center;
     }
 
@@ -108,9 +100,9 @@
       width: 18px !important;
       height: 18px !important;
       padding: 3px;
-      border-radius: 999px;
-      background: rgba(14, 58, 47, 0.95);
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+      border-radius: var(--homey-border-radius-full, 999px);
+      background: var(--homey-color-green-500, #2cbb63);
+      box-shadow: 0 0 0 2px var(--homey-background-color, #ffffff);
     }
 
     .battery-value {
@@ -120,34 +112,35 @@
       display: flex;
       align-items: baseline;
       gap: 4px;
+      color: var(--homey-text-color, #333333);
     }
 
     .battery-unit {
-      font-size: 15px;
+      font-size: var(--homey-text-md-size, 15px);
       font-weight: 600;
-      opacity: 0.7;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
     }
 
     .hero-subtitle {
       margin-top: 6px;
-      font-size: 14px;
-      opacity: 0.82;
+      font-size: var(--homey-text-sm-size, 14px);
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
       text-transform: capitalize;
     }
 
     .metrics {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: var(--homey-space-10, 10px);
     }
 
     .metric {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: var(--homey-space-10, 10px);
       padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--homey-border-radius-large, 14px);
+      background: var(--homey-color-mono-100, rgba(0,0,0,0.04));
       min-width: 0;
     }
 
@@ -155,7 +148,7 @@
       width: 18px;
       height: 18px;
       flex-shrink: 0;
-      opacity: 0.95;
+      opacity: 0.7;
     }
 
     .metric-text {
@@ -163,16 +156,17 @@
     }
 
     .metric-label {
-      font-size: 11px;
+      font-size: var(--homey-text-xs-size, 11px);
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      opacity: 0.65;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
     }
 
     .metric-value {
-      font-size: 15px;
+      font-size: var(--homey-text-md-size, 15px);
       font-weight: 700;
       line-height: 1.2;
+      color: var(--homey-text-color, #333333);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -183,10 +177,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: var(--homey-space-10, 10px);
       margin-top: auto;
-      font-size: 12px;
-      opacity: 0.72;
+      font-size: var(--homey-text-xs-size, 12px);
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
     }
 
     .address {
@@ -199,33 +193,35 @@
     .actions {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
+      gap: var(--homey-space-8, 8px);
     }
 
     .button {
       appearance: none;
       border: 0;
-      border-radius: 14px;
+      cursor: pointer;
+      border-radius: var(--homey-border-radius-large, 14px);
       min-height: 40px;
       padding: 10px 12px;
-      font-size: 13px;
+      font-size: var(--homey-text-sm-size, 13px);
       font-weight: 700;
-      color: inherit;
-      background: rgba(255, 255, 255, 0.10);
-      transition: transform 120ms ease, background 120ms ease, opacity 120ms ease;
+      color: var(--homey-text-color, #333333);
+      background: var(--homey-color-mono-100, rgba(0,0,0,0.06));
+      transition: transform 120ms ease, opacity 120ms ease;
     }
 
     .button.primary {
-      background: #0E3A2F;
-      color: #ffffff;
+      background: var(--homey-color-blue-500, #0E3A2F);
+      color: var(--homey-color-white, #ffffff);
     }
 
     .button:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     .button[disabled] {
-      opacity: 0.45;
+      opacity: 0.4;
+      cursor: default;
     }
 
     .message {
@@ -234,9 +230,9 @@
       justify-content: center;
       min-height: 120px;
       text-align: center;
-      font-size: 14px;
-      opacity: 0.8;
-      padding: 12px;
+      font-size: var(--homey-text-sm-size, 14px);
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
+      padding: var(--homey-space-12, 12px);
     }
 
     .hidden {
@@ -273,12 +269,12 @@
 </head>
 <body>
   <div class="widget">
-    <div id="message" class="message">Loading widget…</div>
+    <div id="message" class="message">Loading widget...</div>
 
     <div id="content" class="hidden">
       <div class="header">
         <div class="title-block">
-          <div class="eyebrow">MyŠkoda</div>
+          <div class="eyebrow">MySkoda</div>
           <div class="title" id="vehicle-name">Vehicle</div>
         </div>
         <div class="connection" id="connection-status">Unknown</div>
@@ -286,8 +282,8 @@
 
       <div class="hero">
         <div class="battery">
-          <img id="battery-icon" src="./public/icons/battery-0.svg" alt="Battery">
-          <img id="charging-icon" class="charging-overlay hidden" src="./public/icons/charging.svg" alt="Charging">
+          <img id="battery-icon" src="./icons/battery-0.svg" alt="Battery">
+          <img id="charging-icon" class="charging-overlay hidden" src="./icons/charging.svg" alt="Charging">
         </div>
         <div>
           <div class="battery-value">
@@ -300,28 +296,28 @@
 
       <div class="metrics">
         <div class="metric">
-          <img class="metric-icon" src="./public/icons/range.svg" alt="Range">
+          <img class="metric-icon" src="./icons/range.svg" alt="Range">
           <div class="metric-text">
             <div class="metric-label">Range</div>
             <div class="metric-value" id="range-value">-- km</div>
           </div>
         </div>
         <div class="metric">
-          <img class="metric-icon" id="lock-icon" src="./public/icons/unlock.svg" alt="Lock state">
+          <img class="metric-icon" id="lock-icon" src="./icons/unlock.svg" alt="Lock state">
           <div class="metric-text">
             <div class="metric-label">Lock</div>
             <div class="metric-value" id="lock-value">Unknown</div>
           </div>
         </div>
         <div class="metric">
-          <img class="metric-icon" src="./public/icons/plug.svg" alt="Plug state">
+          <img class="metric-icon" src="./icons/plug.svg" alt="Plug state">
           <div class="metric-text">
             <div class="metric-label">Plug</div>
             <div class="metric-value" id="plug-value">Unknown</div>
           </div>
         </div>
         <div class="metric">
-          <img class="metric-icon" src="./public/icons/climate.svg" alt="Climate state">
+          <img class="metric-icon" src="./icons/climate.svg" alt="Climate state">
           <div class="metric-text">
             <div class="metric-label">Climate</div>
             <div class="metric-value" id="climate-value">Unknown</div>
@@ -368,18 +364,18 @@
     }
 
     function getBatteryIcon(level) {
-      if (level === null || level === undefined || Number.isNaN(Number(level))) return './public/icons/battery-0.svg';
-      if (level <= 10) return './public/icons/battery-0.svg';
-      if (level <= 25) return './public/icons/battery-1.svg';
-      if (level <= 40) return './public/icons/battery-2.svg';
-      if (level <= 60) return './public/icons/battery-3.svg';
-      if (level <= 80) return './public/icons/battery-4.svg';
-      return './public/icons/battery-5.svg';
+      if (level === null || level === undefined || Number.isNaN(Number(level))) return './icons/battery-0.svg';
+      if (level <= 10) return './icons/battery-0.svg';
+      if (level <= 25) return './icons/battery-1.svg';
+      if (level <= 40) return './icons/battery-2.svg';
+      if (level <= 60) return './icons/battery-3.svg';
+      if (level <= 80) return './icons/battery-4.svg';
+      return './icons/battery-5.svg';
     }
 
     function humanizeCharging(state) {
       if (!state) return 'Unknown';
-      return String(state).replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+      return String(state).replace(/_/g, ' ').replace(/\b\w/g, function(char) { return char.toUpperCase(); });
     }
 
     function textOrFallback(value, fallback) {
@@ -388,28 +384,28 @@
 
     function renderState(state) {
       currentState = state;
-      const settings = getWidgetSettings();
-      const batteryPercent = state.batteryPercent ?? '--';
-      const charging = Boolean(state.isCharging);
-      const chargingLabel = humanizeCharging(state.chargingState);
-      const lastUpdatedText = state.lastUpdated ? `Updated: ${state.lastUpdated}` : 'Updated: --';
-      const parkingAddress = settings.show_location === false ? 'Parking address hidden' : textOrFallback(state.parkingAddress, 'No parking address');
+      var settings = getWidgetSettings();
+      var batteryPercent = state.batteryPercent != null ? state.batteryPercent : '--';
+      var charging = Boolean(state.isCharging);
+      var chargingLabel = humanizeCharging(state.chargingState);
+      var lastUpdatedText = state.lastUpdated ? 'Updated: ' + state.lastUpdated : 'Updated: --';
+      var parkingAddress = settings.show_location === false ? 'Parking address hidden' : textOrFallback(state.parkingAddress, 'No parking address');
 
-      document.getElementById('vehicle-name').textContent = textOrFallback(state.name, 'MyŠkoda');
+      document.getElementById('vehicle-name').textContent = textOrFallback(state.name, 'MySkoda');
       document.getElementById('connection-status').textContent = textOrFallback(state.connectionStatus, 'unknown');
-      document.getElementById('connection-status').className = `connection ${String(state.connectionStatus || 'unknown').toLowerCase()}`;
+      document.getElementById('connection-status').className = 'connection ' + String(state.connectionStatus || 'unknown').toLowerCase();
       document.getElementById('battery-percent').textContent = batteryPercent;
       document.getElementById('hero-subtitle').textContent = charging
-        ? `${chargingLabel}${state.chargePowerKw ? ` · ${state.chargePowerKw} kW` : ''}`
+        ? chargingLabel + (state.chargePowerKw ? ' \u00b7 ' + state.chargePowerKw + ' kW' : '')
         : chargingLabel;
       document.getElementById('battery-icon').src = getBatteryIcon(Number(state.batteryPercent));
       document.getElementById('charging-icon').classList.toggle('hidden', !charging);
-      document.getElementById('range-value').textContent = state.rangeKm !== null && state.rangeKm !== undefined ? `${state.rangeKm} km` : '-- km';
+      document.getElementById('range-value').textContent = state.rangeKm != null ? state.rangeKm + ' km' : '-- km';
       document.getElementById('lock-value').textContent = textOrFallback(state.lockLabel, 'Unknown');
-      document.getElementById('lock-icon').src = state.locked ? './public/icons/lock.svg' : './public/icons/unlock.svg';
+      document.getElementById('lock-icon').src = state.locked ? './icons/lock.svg' : './icons/unlock.svg';
       document.getElementById('plug-value').textContent = textOrFallback(state.plugLabel, 'Unknown');
       document.getElementById('climate-value').textContent = state.climateActive
-        ? `Active${state.outsideTemperatureC !== null && state.outsideTemperatureC !== undefined ? ` · ${state.outsideTemperatureC}°C` : ''}`
+        ? 'Active' + (state.outsideTemperatureC != null ? ' \u00b7 ' + state.outsideTemperatureC + '\u00b0C' : '')
         : 'Off';
       document.getElementById('parking-address').textContent = parkingAddress;
       document.getElementById('last-updated').textContent = lastUpdatedText;
@@ -419,14 +415,14 @@
     }
 
     async function fetchState() {
-      const deviceId = getDeviceId();
+      var deviceId = getDeviceId();
       if (!deviceId) {
-        setMessage('Select a MyŠkoda vehicle for this widget.');
+        setMessage('Select a MySkoda vehicle for this widget.');
         return;
       }
 
       try {
-        const state = await HomeyInstance.api('GET', `/state?deviceId=${encodeURIComponent(deviceId)}`);
+        var state = await HomeyInstance.api('GET', '/state?deviceId=' + encodeURIComponent(deviceId));
         renderState(state);
       } catch (error) {
         setMessage(error && error.message ? error.message : 'Failed to load widget data.');
@@ -434,8 +430,8 @@
     }
 
     async function callAction(path, body) {
-      const buttonIds = ['refresh-button', 'charging-button', 'climate-button'];
-      buttonIds.forEach((id) => {
+      var buttonIds = ['refresh-button', 'charging-button', 'climate-button'];
+      buttonIds.forEach(function(id) {
         document.getElementById(id).disabled = true;
       });
 
@@ -448,33 +444,33 @@
       } catch (error) {
         setMessage(error && error.message ? error.message : 'Action failed.');
       } finally {
-        buttonIds.forEach((id) => {
+        buttonIds.forEach(function(id) {
           document.getElementById(id).disabled = false;
         });
       }
     }
 
     function bindActions() {
-      document.getElementById('refresh-button').addEventListener('click', async () => {
-        const deviceId = getDeviceId();
+      document.getElementById('refresh-button').addEventListener('click', async function() {
+        var deviceId = getDeviceId();
         if (!deviceId) return;
-        await callAction('/actions/refresh', { deviceId });
+        await callAction('/actions/refresh', { deviceId: deviceId });
       });
 
-      document.getElementById('charging-button').addEventListener('click', async () => {
-        const deviceId = getDeviceId();
+      document.getElementById('charging-button').addEventListener('click', async function() {
+        var deviceId = getDeviceId();
         if (!deviceId || !currentState) return;
-        const path = currentState.isCharging ? '/actions/stop-charging' : '/actions/start-charging';
-        await callAction(path, { deviceId });
+        var path = currentState.isCharging ? '/actions/stop-charging' : '/actions/start-charging';
+        await callAction(path, { deviceId: deviceId });
       });
 
-      document.getElementById('climate-button').addEventListener('click', async () => {
-        const deviceId = getDeviceId();
+      document.getElementById('climate-button').addEventListener('click', async function() {
+        var deviceId = getDeviceId();
         if (!deviceId || !currentState) return;
-        const settings = getWidgetSettings();
-        const path = currentState.climateActive ? '/actions/stop-climate' : '/actions/start-climate';
+        var settings = getWidgetSettings();
+        var path = currentState.climateActive ? '/actions/stop-climate' : '/actions/start-climate';
         await callAction(path, {
-          deviceId,
+          deviceId: deviceId,
           temperature: Number(settings.climate_temperature || 21),
         });
       });
@@ -482,10 +478,10 @@
 
     function onHomeyReady(Homey) {
       HomeyInstance = Homey;
+      Homey.ready({ height: 340 });
       bindActions();
       fetchState();
       refreshTimer = setInterval(fetchState, 30000);
-      Homey.ready({ height: 260 });
     }
   </script>
 </body>

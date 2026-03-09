@@ -6,7 +6,7 @@ Features:
 - Real-time vehicle data: battery level, charging status, charging power, remaining charge time, estimated range
 - Vehicle status: locked/unlocked, doors, windows, trunk, bonnet state
 - Climate control: start/stop air conditioning with target temperature
-- Homey dashboard widget: live vehicle overview with quick actions for refresh, charging, and climatization
+- Homey dashboard widgets: Vehicle Dashboard with live overview and quick actions, plus a simple Vehicle Status widget for diagnostics
 - Location tracking: GPS coordinates and parking address
 - Connection status: online/offline monitoring
 - Outside temperature and mileage tracking
@@ -41,6 +41,7 @@ MyŠkoda S-PIN:
 The S-PIN is a 4-digit security code created during the Škoda Connect app setup. It is required for remote lock/unlock actions. Configure it in the device's Advanced Settings under Security. Without it, lock/unlock will show a clear error message.
 
 Troubleshooting:
+- App not shown when adding a device: if MyŠkoda does not appear in the device list, go to More > Apps > MyŠkoda > ⋮ > Restart. After the app restarts, try adding the device again.
 - Login fails: if your credentials are correct, the error popup now shows the underlying reason. Common causes include pending terms/marketing consent (accept in the official MyŠkoda app first), temporary VW identity server issues, or account lockout after too many attempts.
 
 Known limitations:

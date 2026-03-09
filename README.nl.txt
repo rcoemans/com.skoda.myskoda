@@ -6,7 +6,7 @@ Functies:
 - Realtime voertuiggegevens: accuniveau, laadstatus, laadvermogen, resterende laadtijd, geschat bereik
 - Voertuigstatus: vergrendeld/ontgrendeld, deuren, ramen, kofferbak, motorkap
 - Klimaatregeling: start/stop airconditioning met doeltemperatuur
-- Homey-dashboardwidget: live voertuigozicht met snelle acties voor vernieuwen, laden en klimaatregeling
+- Homey-dashboardwidgets: Voertuigdashboard met live overzicht en snelle acties, plus een eenvoudige Voertuigstatus-widget voor diagnostiek
 - Locatie tracking: GPS-coördinaten en parkeeradres
 - Verbindingsstatus: online/offline monitoring
 - Buitentemperatuur en kilometerstand
@@ -41,6 +41,7 @@ MyŠkoda S-PIN:
 De S-PIN is een 4-cijferige beveiligingscode die is aangemaakt tijdens de installatie van de Škoda Connect-app. Deze is vereist voor vergrendelen/ontgrendelen op afstand. Configureer deze in de geavanceerde instellingen van het apparaat onder Beveiliging. Zonder S-PIN krijg je een duidelijke foutmelding.
 
 Probleemoplossing:
+- App niet zichtbaar bij toevoegen apparaat: als MyŠkoda niet verschijnt in de apparatenlijst, ga naar Meer > Apps > MyŠkoda > ⋮ > Herstart. Probeer na het herstarten opnieuw het apparaat toe te voegen.
 - Inloggen mislukt: als je inloggegevens correct zijn, toont de foutmelding nu de onderliggende reden. Veelvoorkomende oorzaken zijn openstaande voorwaarden/marketingtoestemming (accepteer deze eerst in de officiële MyŠkoda-app), tijdelijke problemen met de VW-identiteitsserver, of accountvergrendeling na te veel pogingen.
 
 Bekende beperkingen:

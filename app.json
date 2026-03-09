@@ -793,6 +793,21 @@
     }
   ],
   "widgets": {
+    "status": {
+      "name": {
+        "en": "Vehicle Status",
+        "nl": "Voertuigstatus"
+      },
+      "settings": [],
+      "height": 120,
+      "api": {
+        "getStatus": {
+          "method": "GET",
+          "path": "/"
+        }
+      },
+      "id": "status"
+    },
     "vehicle": {
       "name": {
         "en": "Vehicle Dashboard",

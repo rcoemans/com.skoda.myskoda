@@ -33,7 +33,9 @@ Homey app for **Škoda** vehicles using the **MyŠkoda platform**. Connect your 
 
 ## Widgets
 
-The app includes a **Vehicle Dashboard** widget for Homey dashboards.
+The app includes two widgets for Homey dashboards:
+
+### Vehicle Dashboard
 
 - **Live overview**: battery level, charging state, range, lock state, plug state, climate state, parking address, and last update
 - **Quick actions**: refresh vehicle data, start/stop charging, and start/stop climatization
@@ -41,6 +43,10 @@ The app includes a **Vehicle Dashboard** widget for Homey dashboards.
 - **Widget settings**: configure the climatization target temperature and choose whether to show the parking address
 
 The widget uses the same capabilities and action methods as the paired vehicle device, so it stays in sync with the app without changing existing flow or device behavior.
+
+### Vehicle Status
+
+A simple status widget that confirms the app is running and widgets are functioning correctly. Useful for diagnostics.
 
 ## Installation
 
@@ -154,6 +160,10 @@ The S-PIN must be configured in the device's **Advanced Settings → Security** 
 - All communication with the MyŠkoda API uses **HTTPS**.
 
 ## Troubleshooting
+
+### MyŠkoda app not shown when adding a device
+
+If the MyŠkoda app does not appear in the list when trying to add a new device, go to **More → Apps → MyŠkoda → ⋮ → Restart**. After the app restarts, try adding the device again.
 
 ### Login fails with "Check your email and password"
 
