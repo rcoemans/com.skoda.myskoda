@@ -144,6 +144,18 @@ All capabilities exposed by the Car device:
 - **Sensitive data** (VIN, GPS coordinates, tokens) are redacted in all log output.
 - All communication with the MyŠkoda API uses **HTTPS**.
 
+## Troubleshooting
+
+### Login fails with "Check your email and password"
+
+If you are sure your credentials are correct, the error popup now includes the underlying reason so you can diagnose the issue. Common causes:
+
+- **Terms & conditions or marketing consent required** — Open the official MyŠkoda mobile app, log in, and accept any pending consent screens. Then retry pairing in Homey.
+- **VW identity server temporarily unavailable** — Wait a few minutes and try again.
+- **Account locked** — Too many failed attempts can temporarily lock your account. Wait ~15 minutes.
+
+If the popup shows a technical error (e.g. "Failed to find window._IDK"), please open an issue on GitHub with the error text.
+
 ## Known Limitations
 
 - The MyŠkoda API is a **cloud-based** service — the vehicle must have an active internet connection.

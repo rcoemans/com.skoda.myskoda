@@ -33,6 +33,9 @@ Setup:
 5. The device will start polling data automatically
 6. Adjust poll interval and home location in device Settings
 
+Troubleshooting:
+- Login fails: if your credentials are correct, the error popup now shows the underlying reason. Common causes include pending terms/marketing consent (accept in the official MyŠkoda app first), temporary VW identity server issues, or account lockout after too many attempts.
+
 Known limitations:
 - The MyŠkoda API is cloud-based — the vehicle must have an active internet connection
 - Polling interval is limited to a minimum of 5 minutes to avoid rate limiting

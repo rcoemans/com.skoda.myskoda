@@ -15,6 +15,10 @@ import {
 } from '../constants';
 import { IDKSession } from '../types';
 
+// User-Agent mimicking the MySkoda mobile app so the VW identity server
+// returns the expected login HTML instead of blocking or serving a fallback page.
+const USER_AGENT = 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/125.0.6422.165 Mobile Safari/537.36';
+
 export class AuthClient {
   private session: IDKSession | null = null;
   private log: (...args: any[]) => void;
@@ -22,6 +26,19 @@ export class AuthClient {
 
   constructor(log: (...args: any[]) => void) {
     this.log = log;
+  }
+
+  /**
+   * Wrapper around httpRequest that injects the session cookie jar,
+   * User-Agent, and Accept headers into every auth-flow request.
+   */
+  private _request(url: string, options: import('../utils/http').HttpRequestOptions = {}) {
+    const headers: Record<string, string> = {
+      'User-Agent': USER_AGENT,
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      ...options.headers,
+    };
+    return httpRequest(url, { ...options, headers, cookieJar: this.cookieJar });
   }
 
   get accessToken(): string | null {
@@ -180,10 +197,16 @@ export class AuthClient {
       prompt: 'login',
     });
 
-    const response = await httpRequest(
+    const response = await this._request(
       `${BASE_URL_IDENT}/oidc/v1/authorize?${params.toString()}`,
-      { followRedirects: true, cookieJar: this.cookieJar },
+      { followRedirects: true },
     );
+
+    this.log(`OIDC authorize response: status=${response.statusCode}, bodyLen=${response.body.length}`);
+
+    if (response.statusCode !== 200) {
+      throw new Error(`OIDC authorize returned HTTP ${response.statusCode}`);
+    }
 
     return parseCSRF(response.body);
   }
@@ -196,16 +219,21 @@ export class AuthClient {
       _csrf: csrf.csrf,
     });
 
-    const response = await httpRequest(
+    const response = await this._request(
       `${BASE_URL_IDENT}/signin-service/v1/${CLIENT_ID}/login/identifier`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
         followRedirects: true,
-        cookieJar: this.cookieJar,
       },
     );
+
+    this.log(`Email step response: status=${response.statusCode}, bodyLen=${response.body.length}`);
+
+    if (response.statusCode !== 200) {
+      throw new Error(`Email step returned HTTP ${response.statusCode}`);
+    }
 
     return parseCSRF(response.body);
   }
@@ -219,19 +247,27 @@ export class AuthClient {
       _csrf: csrf.csrf,
     });
 
-    let response = await httpRequest(
+    let response = await this._request(
       `${BASE_URL_IDENT}/signin-service/v1/${CLIENT_ID}/login/authenticate`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
         followRedirects: false,
-        cookieJar: this.cookieJar,
       },
     );
 
+    this.log(`Password step response: status=${response.statusCode}`);
+
+    // A 200 here (instead of a 3xx redirect) usually means wrong credentials
+    // or a challenge page (CAPTCHA, consent, etc.).
+    if (response.statusCode === 200) {
+      throw new Error('Authentication failed — the identity server did not redirect. Credentials may be incorrect.');
+    }
+
     // Follow redirects until we hit the myskoda:// redirect
     let location = response.headers['location'] as string | undefined;
+    this.log(`Password step redirect: ${location?.substring(0, 80)}...`);
     while (location && !location.startsWith('myskoda://')) {
       if (location.includes('terms-and-conditions')) {
         throw new Error('Terms and conditions acceptance required. Please accept in the MyŠkoda app first.');
@@ -239,12 +275,12 @@ export class AuthClient {
       if (location.includes('consent/marketing')) {
         throw new Error('Marketing consent page encountered. Please complete setup in the MyŠkoda app first.');
       }
-      response = await httpRequest(location, { followRedirects: false, cookieJar: this.cookieJar });
+      response = await this._request(location, { followRedirects: false });
       location = response.headers['location'] as string | undefined;
     }
 
     if (!location || !location.startsWith('myskoda://')) {
-      throw new Error('Failed to obtain authorization code. Check your credentials.');
+      throw new Error(`Failed to obtain authorization code (last status=${response.statusCode}).`);
     }
 
     const url = new URL(location);
@@ -256,7 +292,7 @@ export class AuthClient {
   }
 
   private async _exchangeCode(code: string, verifier: string): Promise<IDKSession> {
-    const response = await httpRequest(
+    const response = await this._request(
       `${BASE_URL_SKODA}/api/v1/authentication/exchange-authorization-code?tokenType=CONNECT`,
       {
         method: 'POST',
@@ -266,7 +302,6 @@ export class AuthClient {
           redirectUri: REDIRECT_URI,
           verifier: verifier,
         }),
-        cookieJar: this.cookieJar,
       },
     );
 

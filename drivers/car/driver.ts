@@ -32,7 +32,9 @@ class CarDriver extends Homey.Driver {
         return true;
       } catch (err: any) {
         this.error('Pairing: login failed:', err.message);
-        throw new Error(this.homey.__('pair.login_failed') || `Login failed: ${err.message}`);
+        // Surface the actual error so users (and developers) can diagnose
+        const detail = err.message || 'Unknown error';
+        throw new Error(`${this.homey.__('pair.login_failed') || 'Login failed.'}\n\n${detail}`);
       }
     });
 

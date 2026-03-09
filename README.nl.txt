@@ -33,6 +33,9 @@ Installatie:
 5. Het apparaat begint automatisch met het ophalen van gegevens
 6. Pas het poll-interval en de thuislocatie aan in de apparaatinstellingen
 
+Probleemoplossing:
+- Inloggen mislukt: als je inloggegevens correct zijn, toont de foutmelding nu de onderliggende reden. Veelvoorkomende oorzaken zijn openstaande voorwaarden/marketingtoestemming (accepteer deze eerst in de officiële MyŠkoda-app), tijdelijke problemen met de VW-identiteitsserver, of accountvergrendeling na te veel pogingen.
+
 Bekende beperkingen:
 - De MyŠkoda-API is cloudgebaseerd — het voertuig moet een actieve internetverbinding hebben
 - Het poll-interval is beperkt tot minimaal 5 minuten om rate limiting te voorkomen

@@ -25,37 +25,46 @@ export interface CSRFState {
  * the whole blob.
  */
 export function parseCSRF(html: string): CSRFState {
-  // Extract the window._IDK block
-  const idkMatch = html.match(/window\._IDK\s*=\s*\{([\s\S]*?)(?:\n\s*\};\s*<\/script>|\n\s*\};)/);
-  if (!idkMatch) {
-    throw new Error('Failed to find window._IDK in login page HTML');
+  // The VW identity server embeds the data in a <script> block as:
+  //   window._IDK = { csrf_token: '...', templateModel: { hmac: '...', relayState: '...' }, ... }
+  //
+  // Approach: find "window._IDK" then grab everything from there to the end
+  // of the text, and extract the three values with individual regexes.
+  // This is intentionally loose to tolerate formatting changes.
+
+  const idkIdx = html.indexOf('window._IDK');
+  if (idkIdx === -1) {
+    // Include a snippet of the HTML to help debug what the server returned
+    const snippet = html.substring(0, 500).replace(/\s+/g, ' ');
+    throw new Error(`Failed to find window._IDK in login page HTML. Snippet: ${snippet}`);
   }
 
-  const idkBlock = idkMatch[1];
+  // Work with everything after "window._IDK"
+  const idkBlock = html.substring(idkIdx);
 
-  // Extract csrf_token
-  const csrfMatch = idkBlock.match(/csrf_token\s*:\s*['"]([^'"]+)['"]/);
+  // The templateModel value is a JSON string with double-quoted keys/values:
+  //   "hmac":"abc123","relayState":"xyz789"
+  // while csrf_token uses JS-style unquoted key:
+  //   csrf_token: 'abc...'
+  // The ['"]? after the key name handles the optional closing quote that
+  // appears in JSON-style ("hmac":) vs JS-style (hmac:) notation.
+
+  // Extract csrf_token — JS-style key, quoted value
+  const csrfMatch = idkBlock.match(/csrf_token['"]?\s*:\s*['"]([^'"]+)['"]/);
   if (!csrfMatch) {
     throw new Error('Failed to parse csrf_token from window._IDK');
   }
 
-  // Extract templateModel sub-block
-  const templateMatch = idkBlock.match(/templateModel\s*:\s*\{([\s\S]*?)\}/);
-  if (!templateMatch) {
-    throw new Error('Failed to parse templateModel from window._IDK');
-  }
-
-  const templateBlock = templateMatch[1];
-
-  // Extract hmac and relayState from templateModel
-  const hmacMatch = templateBlock.match(/hmac\s*:\s*['"]([^'"]+)['"]/);
-  const relayStateMatch = templateBlock.match(/relayState\s*:\s*['"]([^'"]+)['"]/);
-
+  // Extract hmac — may be JSON-style "hmac":"value" inside templateModel
+  const hmacMatch = idkBlock.match(/hmac['"]?\s*:\s*['"]([^'"]+)['"]/);
   if (!hmacMatch) {
-    throw new Error('Failed to parse hmac from templateModel');
+    throw new Error('Failed to parse hmac from window._IDK');
   }
+
+  // Extract relayState — may be JSON-style "relayState":"value"
+  const relayStateMatch = idkBlock.match(/relayState['"]?\s*:\s*['"]([^'"]+)['"]/);
   if (!relayStateMatch) {
-    throw new Error('Failed to parse relayState from templateModel');
+    throw new Error('Failed to parse relayState from window._IDK');
   }
 
   return {
