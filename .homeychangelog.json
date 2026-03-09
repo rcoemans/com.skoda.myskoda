@@ -23,5 +23,8 @@
   },
   "1.0.7": {
     "en": "Fixed widget “App not ready” issue by moving the widget entry point to the correct Homey SDK location (widgets/<id>/public/index.html), updating icon paths, and removing the incorrectly placed index.html. Added defensive try/catch handling around flow card registrations to prevent app initialization crashes. Introduced a minimal reference “Vehicle Status” widget to validate widget functionality and added troubleshooting guidance to the READMEs, which were updated to document both widgets and include a tip to restart the MyŠkoda app if it does not appear when adding a device."
+  },
+  "1.0.8": {
+    "en": "Fixed device status indicators by renaming capabilities to Homey-compatible prefixes (meter_ and measure_) so mileage, range, remaining charge time, and charging power can be used as tile indicators. Clarified that lock/unlock and doors-open states are independent vehicle signals. Completely redesigned the widget into a modern dashboard with animated battery gauge, charging indicators, status cards, hero stats, and full light/dark mode support. Verified complete English and Dutch translations across capabilities, flows, widgets, and locales. Updated all READMEs with device status indicator documentation, lock vs. doors explanation, and a note that devices must be re-added after the capability rename."
   }
 }
