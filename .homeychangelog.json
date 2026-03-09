@@ -14,5 +14,8 @@
   },
   "1.0.4": {
     "en": "Fixed an issue which prevented user from adding the device"
+  },
+  "1.0.5": {
+    "en": "Added S-PIN support for vehicle lock/unlock with new security settings and Flow action cards. Implemented lock/unlock API integration and device capability handling with clear error messages when S-PIN is missing. Added reverse geocoding to resolve parking GPS coordinates to a readable address. Enabled Insights for mileage, range, charging power, and remaining charge time, and allowed these to be used as device status indicators. Fixed mileage extraction from vehicle status API. Improved widget stability by preventing crashes during app startup. Increased device icon stroke width for better visibility. Updated documentation (README, README.txt, README.nl.txt) with S-PIN setup, lock/unlock features, parking address, and insights information."
   }
 }
