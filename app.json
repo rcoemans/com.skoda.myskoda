@@ -326,6 +326,28 @@
     ],
     "actions": [
       {
+        "title": {
+          "en": "Lock vehicle",
+          "nl": "Voertuig vergrendelen"
+        },
+        "titleFormatted": {
+          "en": "Lock [[device]]",
+          "nl": "Vergrendel [[device]]"
+        },
+        "hint": {
+          "en": "Remotely lock the vehicle. Requires the MyŠkoda S-PIN to be configured in the device's Advanced Settings under Security.",
+          "nl": "Vergrendel het voertuig op afstand. Hiervoor moet de MyŠkoda S-PIN zijn ingesteld in de geavanceerde instellingen van het apparaat onder Beveiliging."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ],
+        "id": "lock_vehicle"
+      },
+      {
         "id": "refresh_vehicle",
         "title": {
           "en": "Refresh vehicle data",
@@ -478,6 +500,28 @@
             "filter": "driver_id=car"
           }
         ]
+      },
+      {
+        "title": {
+          "en": "Unlock vehicle",
+          "nl": "Voertuig ontgrendelen"
+        },
+        "titleFormatted": {
+          "en": "Unlock [[device]]",
+          "nl": "Ontgrendel [[device]]"
+        },
+        "hint": {
+          "en": "Remotely unlock the vehicle. Requires the MyŠkoda S-PIN to be configured in the device's Advanced Settings under Security.",
+          "nl": "Ontgrendel het voertuig op afstand. Hiervoor moet de MyŠkoda S-PIN zijn ingesteld in de geavanceerde instellingen van het apparaat onder Beveiliging."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ],
+        "id": "unlock_vehicle"
       }
     ]
   },
@@ -533,6 +577,18 @@
             "en": "Outside temperature",
             "nl": "Buitentemperatuur"
           }
+        },
+        "my_skoda_mileage_km": {
+          "preventInsights": false
+        },
+        "my_skoda_range_km": {
+          "preventInsights": false
+        },
+        "my_skoda_remaining_charge_minutes": {
+          "preventInsights": false
+        },
+        "my_skoda_charge_power_kw": {
+          "preventInsights": false
         }
       },
       "platforms": [
@@ -691,6 +747,28 @@
         {
           "type": "group",
           "label": {
+            "en": "Security",
+            "nl": "Beveiliging"
+          },
+          "children": [
+            {
+              "id": "spin",
+              "type": "password",
+              "label": {
+                "en": "MyŠkoda S-PIN",
+                "nl": "MyŠkoda S-PIN"
+              },
+              "value": "",
+              "hint": {
+                "en": "The MyŠkoda S-PIN is a 4-digit security code created during the Škoda Connect app setup to authorize remote services like locking/unlocking. It is set up via the app and can be reset or changed within the app settings.",
+                "nl": "De MyŠkoda S-PIN is een 4-cijferige beveiligingscode die is aangemaakt tijdens de installatie van de Škoda Connect-app om externe diensten zoals vergrendelen/ontgrendelen te autoriseren. Deze wordt ingesteld via de app en kan worden gereset of gewijzigd in de app-instellingen."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
             "en": "Diagnostics",
             "nl": "Diagnostiek"
           },
@@ -813,6 +891,7 @@
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
+      "insights": true,
       "icon": "/assets/icons/power.svg",
       "units": {
         "en": "kW",
@@ -1025,6 +1104,7 @@
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
+      "insights": true,
       "icon": "/assets/icons/mileage.svg",
       "units": {
         "en": "km",
@@ -1051,6 +1131,7 @@
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
+      "insights": true,
       "icon": "/assets/icons/range.svg",
       "units": {
         "en": "km",
@@ -1066,6 +1147,7 @@
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
+      "insights": true,
       "icon": "/assets/icons/clock.svg",
       "units": {
         "en": "min",

@@ -57,6 +57,20 @@ class MySkodaApp extends Homey.App {
         await device.setChargeLimit(limit);
       });
 
+    // Lock vehicle
+    this.homey.flow.getActionCard('lock_vehicle')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        await device.lockVehicle();
+      });
+
+    // Unlock vehicle
+    this.homey.flow.getActionCard('unlock_vehicle')
+      .registerRunListener(async (args: any) => {
+        const device = args.device;
+        await device.unlockVehicle();
+      });
+
     this.log('Flow action cards registered');
   }
 

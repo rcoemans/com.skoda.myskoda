@@ -53,6 +53,10 @@ export class VehicleNormalizer {
       state.lastUpdatedAt = status.carCapturedTimestamp;
     }
 
+    if (status.mileageInKm != null) {
+      state.mileageKm = status.mileageInKm;
+    }
+
     const overall = status.overall;
     if (overall) {
       state.locked = overall.locked === 'LOCKED';

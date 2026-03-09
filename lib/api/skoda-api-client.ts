@@ -163,6 +163,14 @@ export class SkodaApiClient {
     await this._post(`/v2/air-conditioning/${vin}/stop`);
   }
 
+  async lockVehicle(vin: string, spin: string): Promise<void> {
+    await this._post(`/v1/vehicle-access/${vin}/lock`, { currentSpin: spin });
+  }
+
+  async unlockVehicle(vin: string, spin: string): Promise<void> {
+    await this._post(`/v1/vehicle-access/${vin}/unlock`, { currentSpin: spin });
+  }
+
   async startWindowHeating(vin: string): Promise<void> {
     await this._post(`/v2/air-conditioning/${vin}/start-window-heating`);
   }

@@ -12,8 +12,11 @@ Features:
 - Outside temperature and mileage tracking
 - Geofence triggers: vehicle arrived home / left home
 - 5 flow trigger cards: charging started/stopped, battery below threshold, vehicle arrived/left home
+- Remote lock/unlock: lock or unlock your vehicle via the device toggle or flow cards (requires MyŠkoda S-PIN)
 - 3 flow condition cards with inversion support (is/is not): charging, charger connected, vehicle locked
-- 6 flow action cards: refresh data, start/stop charging, start/stop climatization, set charge limit
+- 8 flow action cards: refresh data, start/stop charging, start/stop climatization, set charge limit, lock/unlock vehicle
+- Parking address: automatically resolved from GPS coordinates via OpenStreetMap reverse geocoding
+- Insights: historical charts for battery level, temperature, mileage, range, charging power, and remaining charge time
 - Fully localized in English and Dutch (Nederlands)
 
 Supported vehicles:
@@ -32,6 +35,10 @@ Setup:
 4. Select your vehicle(s) from the list
 5. The device will start polling data automatically
 6. Adjust poll interval and home location in device Settings
+7. To use lock/unlock: enter your MyŠkoda S-PIN in Advanced Settings > Security
+
+MyŠkoda S-PIN:
+The S-PIN is a 4-digit security code created during the Škoda Connect app setup. It is required for remote lock/unlock actions. Configure it in the device's Advanced Settings under Security. Without it, lock/unlock will show a clear error message.
 
 Troubleshooting:
 - Login fails: if your credentials are correct, the error popup now shows the underlying reason. Common causes include pending terms/marketing consent (accept in the official MyŠkoda app first), temporary VW identity server issues, or account lockout after too many attempts.
@@ -39,6 +46,6 @@ Troubleshooting:
 Known limitations:
 - The MyŠkoda API is cloud-based — the vehicle must have an active internet connection
 - Polling interval is limited to a minimum of 5 minutes to avoid rate limiting
-- Vehicle actions may take 30 seconds to several minutes to take effect
+- Vehicle actions (charging, climate, lock/unlock) may take 30 seconds to several minutes to take effect
 - Some capabilities may not be available for all vehicle models
 - After app updates, you may need to remove and re-add the device for new capabilities to appear

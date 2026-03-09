@@ -49,6 +49,18 @@
         "en": "Outside temperature",
         "nl": "Buitentemperatuur"
       }
+    },
+    "my_skoda_mileage_km": {
+      "preventInsights": false
+    },
+    "my_skoda_range_km": {
+      "preventInsights": false
+    },
+    "my_skoda_remaining_charge_minutes": {
+      "preventInsights": false
+    },
+    "my_skoda_charge_power_kw": {
+      "preventInsights": false
     }
   },
   "platforms": [
@@ -200,6 +212,28 @@
           "hint": {
             "en": "Radius around your home coordinates to determine if the vehicle is 'at home'.",
             "nl": "Straal rond je thuiscoördinaten om te bepalen of het voertuig 'thuis' is."
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Security",
+        "nl": "Beveiliging"
+      },
+      "children": [
+        {
+          "id": "spin",
+          "type": "password",
+          "label": {
+            "en": "MyŠkoda S-PIN",
+            "nl": "MyŠkoda S-PIN"
+          },
+          "value": "",
+          "hint": {
+            "en": "The MyŠkoda S-PIN is a 4-digit security code created during the Škoda Connect app setup to authorize remote services like locking/unlocking. It is set up via the app and can be reset or changed within the app settings.",
+            "nl": "De MyŠkoda S-PIN is een 4-cijferige beveiligingscode die is aangemaakt tijdens de installatie van de Škoda Connect-app om externe diensten zoals vergrendelen/ontgrendelen te autoriseren. Deze wordt ingesteld via de app en kan worden gereset of gewijzigd in de app-instellingen."
           }
         }
       ]

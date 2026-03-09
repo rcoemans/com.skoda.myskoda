@@ -7,6 +7,7 @@ import { VehicleNormalizer } from '../../lib/api/vehicle-normalizer';
 import { NormalizedVehicleState } from '../../lib/types';
 import { isAtHome } from '../../lib/utils/geo';
 import { redactVin } from '../../lib/utils/redact';
+import { httpRequest } from '../../lib/utils/http';
 import {
   DEFAULT_POLL_INTERVAL_MINUTES,
   POST_ACTION_REFRESH_DELAYS_MS,
@@ -25,6 +26,7 @@ class CarDevice extends Homey.Device {
     this.log(`Initializing device for VIN ${redactVin(vin)}`);
 
     await this.initializeApiClient();
+    this._registerCapabilityListeners();
     this._startPolling();
 
     this.log(`Device initialized for VIN ${redactVin(vin)}`);
@@ -125,6 +127,11 @@ class CarDevice extends Homey.Device {
         if (storedToken !== this.authClient.refreshToken) {
           await this.setStoreValue('refreshToken', this.authClient.refreshToken);
         }
+      }
+
+      // Reverse geocode parking address if lat/lng available but no address from API
+      if (state.latitude && state.longitude && !state.parkingAddress) {
+        state.parkingAddress = await this._reverseGeocode(state.latitude, state.longitude);
       }
 
       await this._updateCapabilities(state);
@@ -255,7 +262,59 @@ class CarDevice extends Homey.Device {
     }
   }
 
+  private _registerCapabilityListeners(): void {
+    // Lock/unlock toggle — requires S-PIN
+    if (this.hasCapability('locked')) {
+      this.registerCapabilityListener('locked', async (value: boolean) => {
+        const spin = this.getSetting('spin');
+        if (!spin) {
+          throw new Error(
+            'MyŠkoda S-PIN is required to lock/unlock the vehicle. ' +
+            'Please configure it in the device\'s Advanced Settings under Security.',
+          );
+        }
+        const vin = this.getData().vin;
+        if (value) {
+          this.log(`Action: lock vehicle for VIN ${redactVin(vin)}`);
+          await this.apiClient.lockVehicle(vin, spin);
+        } else {
+          this.log(`Action: unlock vehicle for VIN ${redactVin(vin)}`);
+          await this.apiClient.unlockVehicle(vin, spin);
+        }
+        this._schedulePostActionRefresh();
+      });
+    }
+  }
+
   // --- Public action methods (called from flow cards) ---
+
+  async lockVehicle(): Promise<void> {
+    const spin = this.getSetting('spin');
+    if (!spin) {
+      throw new Error(
+        'MyŠkoda S-PIN is required to lock the vehicle. ' +
+        'Please configure it in the device\'s Advanced Settings under Security.',
+      );
+    }
+    const vin = this.getData().vin;
+    this.log(`Action: lock vehicle for VIN ${redactVin(vin)}`);
+    await this.apiClient.lockVehicle(vin, spin);
+    this._schedulePostActionRefresh();
+  }
+
+  async unlockVehicle(): Promise<void> {
+    const spin = this.getSetting('spin');
+    if (!spin) {
+      throw new Error(
+        'MyŠkoda S-PIN is required to unlock the vehicle. ' +
+        'Please configure it in the device\'s Advanced Settings under Security.',
+      );
+    }
+    const vin = this.getData().vin;
+    this.log(`Action: unlock vehicle for VIN ${redactVin(vin)}`);
+    await this.apiClient.unlockVehicle(vin, spin);
+    this._schedulePostActionRefresh();
+  }
 
   async startCharging(): Promise<void> {
     const vin = this.getData().vin;
@@ -305,6 +364,32 @@ class CarDevice extends Homey.Device {
         }
       }, delayMs);
     }
+  }
+
+  /**
+   * Reverse geocode lat/lng to a human-readable address using OpenStreetMap Nominatim.
+   * Returns null on failure so the capability is simply not set.
+   */
+  private async _reverseGeocode(lat: number, lng: number): Promise<string | undefined> {
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`;
+      const response = await httpRequest(url, {
+        headers: {
+          'User-Agent': 'HomeyMySkodaApp/1.0',
+          'Accept': 'application/json',
+        },
+        timeout: 10000,
+      });
+      if (response.statusCode === 200 && response.body) {
+        const data = JSON.parse(response.body);
+        if (data.display_name) {
+          return data.display_name;
+        }
+      }
+    } catch (err: any) {
+      this.error('Reverse geocode failed:', err.message);
+    }
+    return undefined;
   }
 
   async onSettings({ oldSettings, newSettings, changedKeys }: {

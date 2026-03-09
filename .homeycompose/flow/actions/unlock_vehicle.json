@@ -1,0 +1,21 @@
+{
+  "title": {
+    "en": "Unlock vehicle",
+    "nl": "Voertuig ontgrendelen"
+  },
+  "titleFormatted": {
+    "en": "Unlock [[device]]",
+    "nl": "Ontgrendel [[device]]"
+  },
+  "hint": {
+    "en": "Remotely unlock the vehicle. Requires the MyŠkoda S-PIN to be configured in the device's Advanced Settings under Security.",
+    "nl": "Ontgrendel het voertuig op afstand. Hiervoor moet de MyŠkoda S-PIN zijn ingesteld in de geavanceerde instellingen van het apparaat onder Beveiliging."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=car"
+    }
+  ]
+}

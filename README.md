@@ -125,6 +125,8 @@ All capabilities exposed by the Car device:
 | Start climatization     | Start the air conditioning at a target temperature | temperature (°C)    |
 | Stop climatization      | Stop the air conditioning                          | —                   |
 | Set charge limit        | Set the maximum charge level                       | limit (%)           |
+| Lock vehicle            | Remotely lock the vehicle (requires S-PIN)         | —                   |
+| Unlock vehicle          | Remotely unlock the vehicle (requires S-PIN)       | —                   |
 
 ## Device Settings
 
@@ -135,7 +137,14 @@ All capabilities exposed by the Car device:
 | Home latitude            | 0       | Latitude of your home for geofence triggers                      |
 | Home longitude           | 0       | Longitude of your home for geofence triggers                     |
 | Home radius (meters)     | 200     | Geofence radius around home coordinates                          |
+| MyŠkoda S-PIN            | —       | 4-digit security code for remote lock/unlock (see below)         |
 | Debug logging            | Off     | Enable detailed API logging (sensitive data is redacted)         |
+
+### MyŠkoda S-PIN
+
+The MyŠkoda S-PIN is a **4-digit security code** created during the Škoda Connect app setup to authorize remote services like locking and unlocking. It is set up via the MyŠkoda mobile app and can be reset or changed within the app settings.
+
+The S-PIN must be configured in the device's **Advanced Settings → Security** before lock/unlock actions (flow cards or the device toggle) will work. Without it, you will receive a clear error message explaining how to configure it.
 
 ## Security & Privacy
 
@@ -156,11 +165,26 @@ If you are sure your credentials are correct, the error popup now includes the u
 
 If the popup shows a technical error (e.g. "Failed to find window._IDK"), please open an issue on GitHub with the error text.
 
+## Parking Address
+
+The parking address is automatically resolved from the vehicle's GPS coordinates using **OpenStreetMap Nominatim** reverse geocoding. If the MyŠkoda API does not provide an address directly, the app will look up the latitude/longitude and display a human-readable address.
+
+## Insights
+
+The following capabilities are available as **Homey Insights** for historical charts:
+
+- Battery level, Outside temperature (built-in)
+- Mileage, Range, Remaining charge time, Charging power (custom)
+
+## Device Status Indicators
+
+You can add the following capabilities as **Device Status Indicators** on your Homey device tile: Mileage (Kilometerstand), Range (Bereik), Remaining charge time (Resterende laadtijd), and Battery level (Accuniveau).
+
 ## Known Limitations
 
 - The MyŠkoda API is a **cloud-based** service — the vehicle must have an active internet connection.
 - **Polling interval** is limited to a minimum of 5 minutes to avoid rate limiting.
-- **Vehicle actions** (start/stop charging, climate) may take 30 seconds to several minutes to take effect.
+- **Vehicle actions** (start/stop charging, climate, lock/unlock) may take 30 seconds to several minutes to take effect.
 - Some capabilities may not be available for all vehicle models or firmware versions.
 - The API may be temporarily unavailable during MyŠkoda server maintenance.
 - After app updates, you may need to remove and re-add the device for new capabilities to appear.

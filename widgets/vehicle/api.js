@@ -20,16 +20,26 @@ function getDeviceName(device) {
 }
 
 function getDriver(homey) {
-  return homey.drivers.getDriver('car');
+  try {
+    return homey.drivers.getDriver('car');
+  } catch (_err) {
+    return null;
+  }
 }
 
 function getAllDevices(homey) {
   const driver = getDriver(homey);
-  return normalizeDevices(driver.getDevices());
+  if (!driver) return [];
+  try {
+    return normalizeDevices(driver.getDevices());
+  } catch (_err) {
+    return [];
+  }
 }
 
 function findDevice(homey, deviceId) {
   const devices = getAllDevices(homey);
+  if (devices.length === 0) return null;
 
   if (deviceId) {
     const selected = devices.find((device) => getDeviceInstanceId(device) === deviceId);
@@ -90,9 +100,15 @@ function buildState(device) {
 }
 
 async function requireDevice(homey, deviceId) {
+  const driver = getDriver(homey);
+  if (!driver) {
+    const error = new Error('App is still loading. Please wait a moment and try again.');
+    error.statusCode = 503;
+    throw error;
+  }
   const device = findDevice(homey, deviceId);
   if (!device) {
-    const error = new Error('No MyŠkoda vehicle selected.');
+    const error = new Error('No MyŠkoda vehicle found. Please pair a vehicle first.');
     error.statusCode = 404;
     throw error;
   }
