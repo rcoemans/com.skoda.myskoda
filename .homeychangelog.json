@@ -11,5 +11,8 @@
   },
   "1.0.3": {
     "en": "Added error handling for login screen"
+  },
+  "1.0.4": {
+    "en": "Fixed an issue which prevented user from adding the device"
   }
 }
