@@ -1,7 +1,7 @@
 'use strict';
 
 import { URL, URLSearchParams } from 'url';
-import { httpRequest } from '../utils/http';
+import { httpRequest, CookieJar } from '../utils/http';
 import { generateVerifier, generateChallenge, generateNonce } from '../utils/pkce';
 import { parseCSRF, CSRFState } from '../utils/csrf-parser';
 import { redactToken } from '../utils/redact';
@@ -18,6 +18,7 @@ import { IDKSession } from '../types';
 export class AuthClient {
   private session: IDKSession | null = null;
   private log: (...args: any[]) => void;
+  private cookieJar: CookieJar = new CookieJar();
 
   constructor(log: (...args: any[]) => void) {
     this.log = log;
@@ -71,6 +72,11 @@ export class AuthClient {
    */
   async authorize(email: string, password: string): Promise<IDKSession> {
     this.log('Starting authorization flow');
+
+    // Fresh cookie jar for each login attempt — the VW identity server
+    // requires session cookies to correlate the multi-step login flow
+    this.cookieJar = new CookieJar();
+
     const verifier = generateVerifier();
 
     // Step 1: Initial OIDC authorize
@@ -176,7 +182,7 @@ export class AuthClient {
 
     const response = await httpRequest(
       `${BASE_URL_IDENT}/oidc/v1/authorize?${params.toString()}`,
-      { followRedirects: true },
+      { followRedirects: true, cookieJar: this.cookieJar },
     );
 
     return parseCSRF(response.body);
@@ -197,6 +203,7 @@ export class AuthClient {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
         followRedirects: true,
+        cookieJar: this.cookieJar,
       },
     );
 
@@ -219,6 +226,7 @@ export class AuthClient {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
         followRedirects: false,
+        cookieJar: this.cookieJar,
       },
     );
 
@@ -231,7 +239,7 @@ export class AuthClient {
       if (location.includes('consent/marketing')) {
         throw new Error('Marketing consent page encountered. Please complete setup in the MyŠkoda app first.');
       }
-      response = await httpRequest(location, { followRedirects: false });
+      response = await httpRequest(location, { followRedirects: false, cookieJar: this.cookieJar });
       location = response.headers['location'] as string | undefined;
     }
 
@@ -258,6 +266,7 @@ export class AuthClient {
           redirectUri: REDIRECT_URI,
           verifier: verifier,
         }),
+        cookieJar: this.cookieJar,
       },
     );
 
