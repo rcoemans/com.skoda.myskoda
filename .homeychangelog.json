@@ -26,5 +26,8 @@
   },
   "1.0.8": {
     "en": "Fixed device status indicators by renaming capabilities to Homey-compatible prefixes (meter_ and measure_) so mileage, range, remaining charge time, and charging power can be used as tile indicators. Clarified that lock/unlock and doors-open states are independent vehicle signals. Completely redesigned the widget into a modern dashboard with animated battery gauge, charging indicators, status cards, hero stats, and full light/dark mode support. Verified complete English and Dutch translations across capabilities, flows, widgets, and locales. Updated all READMEs with device status indicator documentation, lock vs. doors explanation, and a note that devices must be re-added after the capability rename."
+  },
+  "1.0.9": {
+    "en": "Improved App Store compliance by simplifying README.txt and README.nl.txt (removed duplicated descriptions, flow card listings, obsolete widget references, and re-add device notes). Updated the app description tagline to Your Škoda, always within reach. Je Škoda, altijd binnen handbereik. Replaced the driver icon with a clean line-art car icon that follows Homey design guidelines for canvas size and stroke width. Fixed the vehicle widget device selection by simplifying the capability filter and adding automatic capability migration so existing devices update without needing to be re-added. Removed the unused status widget and updated README.md to reflect the single remaining widget and remove outdated sections."
   }
 }
