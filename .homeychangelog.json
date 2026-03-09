@@ -20,5 +20,8 @@
   },
   "1.0.6": {
     "en": "Fixed mileage retrieval by adding maintenance and health API endpoints and implementing a new mileage extraction method with validation, replacing the incorrect status-based mileage logic so mileage now updates correctly on the next poll. Improved app stability by preventing initialization crashes: flow card registrations are now wrapped in try/catch blocks and widget API calls use defensive error handling so the widget returns a user-friendly “App is still loading” message instead of failing when the app is not yet ready."
+  },
+  "1.0.7": {
+    "en": "Fixed widget “App not ready” issue by moving the widget entry point to the correct Homey SDK location (widgets/<id>/public/index.html), updating icon paths, and removing the incorrectly placed index.html. Added defensive try/catch handling around flow card registrations to prevent app initialization crashes. Introduced a minimal reference “Vehicle Status” widget to validate widget functionality and added troubleshooting guidance to the READMEs, which were updated to document both widgets and include a tip to restart the MyŠkoda app if it does not appear when adding a device."
   }
 }
