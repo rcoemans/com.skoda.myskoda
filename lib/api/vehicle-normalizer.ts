@@ -58,8 +58,10 @@ export class VehicleNormalizer {
 
     const overall = status.overall;
     if (overall) {
-      state.locked = overall.locked === 'LOCKED';
-      state.doorsLocked = overall.doorsLocked === 'LOCKED';
+      const lockedVal = (overall.locked || '').toUpperCase();
+      state.locked = lockedVal === 'YES' || lockedVal === 'LOCKED';
+      const doorsLockedVal = (overall.doorsLocked || '').toUpperCase();
+      state.doorsLocked = doorsLockedVal === 'YES' || doorsLockedVal === 'LOCKED';
       state.doorsOpen = overall.doors === 'OPEN';
       state.windowsOpen = overall.windows === 'OPEN';
       state.lightsOn = overall.lights === 'ON';
