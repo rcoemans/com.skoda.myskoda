@@ -17,6 +17,7 @@ Features:
 - 8 flow action cards: refresh data, start/stop charging, start/stop climatization, set charge limit, lock/unlock vehicle
 - Parking address: automatically resolved from GPS coordinates via OpenStreetMap reverse geocoding
 - Insights: historical charts for battery level, temperature, mileage, range, charging power, and remaining charge time
+- Device status indicators: mileage, range, remaining charge time, charging power, and battery level can be shown on the device tile
 - Fully localized in English and Dutch (Nederlands)
 
 Supported vehicles:
@@ -43,6 +44,11 @@ The S-PIN is a 4-digit security code created during the Škoda Connect app setup
 Troubleshooting:
 - App not shown when adding a device: if MyŠkoda does not appear in the device list, go to More > Apps > MyŠkoda > ⋮ > Restart. After the app restarts, try adding the device again.
 - Login fails: if your credentials are correct, the error popup now shows the underlying reason. Common causes include pending terms/marketing consent (accept in the official MyŠkoda app first), temporary VW identity server issues, or account lockout after too many attempts.
+
+Lock vs. Doors:
+The Locked capability and Doors open capability are independent. Locked reflects the central locking system state (locked/unlocked). Doors open reflects whether any physical door is open (open/closed). A car can be unlocked with all doors closed. These are not opposites — they represent different vehicle states.
+
+Note: After updating to this version, you must remove and re-add the device for the renamed capabilities to appear as device status indicators.
 
 Known limitations:
 - The MyŠkoda API is cloud-based — the vehicle must have an active internet connection

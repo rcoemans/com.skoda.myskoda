@@ -543,12 +543,12 @@
         "measure_temperature",
         "my_skoda_connection_status",
         "my_skoda_last_vehicle_update",
-        "my_skoda_mileage_km",
-        "my_skoda_range_km",
+        "meter_mileage_km",
+        "meter_range_km",
         "my_skoda_charger_connected",
         "my_skoda_charging_state",
-        "my_skoda_charge_power_kw",
-        "my_skoda_remaining_charge_minutes",
+        "measure_charge_power_kw",
+        "meter_remaining_charge_minutes",
         "my_skoda_target_battery_percent",
         "my_skoda_doors_open",
         "my_skoda_windows_open",
@@ -578,16 +578,16 @@
             "nl": "Buitentemperatuur"
           }
         },
-        "my_skoda_mileage_km": {
+        "meter_mileage_km": {
           "preventInsights": false
         },
-        "my_skoda_range_km": {
+        "meter_range_km": {
           "preventInsights": false
         },
-        "my_skoda_remaining_charge_minutes": {
+        "meter_remaining_charge_minutes": {
           "preventInsights": false
         },
-        "my_skoda_charge_power_kw": {
+        "measure_charge_power_kw": {
           "preventInsights": false
         }
       },
@@ -818,7 +818,7 @@
         "singular": true,
         "filter": {
           "class": "other",
-          "capabilities": "measure_battery,my_skoda_charging_state,my_skoda_range_km"
+          "capabilities": "measure_battery,my_skoda_charging_state,meter_range_km"
         }
       },
       "settings": [
@@ -847,7 +847,7 @@
           "value": true
         }
       ],
-      "height": 100,
+      "height": 370,
       "api": {
         "getState": {
           "method": "GET",
@@ -878,6 +878,71 @@
     }
   },
   "capabilities": {
+    "measure_charge_power_kw": {
+      "type": "number",
+      "title": {
+        "en": "Charging power",
+        "nl": "Laadvermogen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "insights": true,
+      "icon": "/assets/icons/power.svg",
+      "units": {
+        "en": "kW",
+        "nl": "kW"
+      },
+      "decimals": 1
+    },
+    "meter_mileage_km": {
+      "type": "number",
+      "title": {
+        "en": "Mileage",
+        "nl": "Kilometerstand"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "insights": true,
+      "icon": "/assets/icons/mileage.svg",
+      "units": {
+        "en": "km",
+        "nl": "km"
+      }
+    },
+    "meter_range_km": {
+      "type": "number",
+      "title": {
+        "en": "Range",
+        "nl": "Bereik"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "insights": true,
+      "icon": "/assets/icons/range.svg",
+      "units": {
+        "en": "km",
+        "nl": "km"
+      }
+    },
+    "meter_remaining_charge_minutes": {
+      "type": "number",
+      "title": {
+        "en": "Remaining charge time",
+        "nl": "Resterende laadtijd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "insights": true,
+      "icon": "/assets/icons/clock.svg",
+      "units": {
+        "en": "min",
+        "nl": "min"
+      }
+    },
     "my_skoda_bonnet_open": {
       "type": "boolean",
       "title": {
@@ -896,23 +961,6 @@
         "en": "Bonnet was closed",
         "nl": "Motorkap werd gesloten"
       }
-    },
-    "my_skoda_charge_power_kw": {
-      "type": "number",
-      "title": {
-        "en": "Charging power",
-        "nl": "Laadvermogen"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
-      "insights": true,
-      "icon": "/assets/icons/power.svg",
-      "units": {
-        "en": "kW",
-        "nl": "kW"
-      },
-      "decimals": 1
     },
     "my_skoda_charger_connected": {
       "type": "boolean",
@@ -1110,22 +1158,6 @@
       },
       "decimals": 6
     },
-    "my_skoda_mileage_km": {
-      "type": "number",
-      "title": {
-        "en": "Mileage",
-        "nl": "Kilometerstand"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
-      "insights": true,
-      "icon": "/assets/icons/mileage.svg",
-      "units": {
-        "en": "km",
-        "nl": "km"
-      }
-    },
     "my_skoda_parking_address": {
       "type": "string",
       "title": {
@@ -1136,38 +1168,6 @@
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/assets/icons/location.svg"
-    },
-    "my_skoda_range_km": {
-      "type": "number",
-      "title": {
-        "en": "Range",
-        "nl": "Bereik"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
-      "insights": true,
-      "icon": "/assets/icons/range.svg",
-      "units": {
-        "en": "km",
-        "nl": "km"
-      }
-    },
-    "my_skoda_remaining_charge_minutes": {
-      "type": "number",
-      "title": {
-        "en": "Remaining charge time",
-        "nl": "Resterende laadtijd"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
-      "insights": true,
-      "icon": "/assets/icons/clock.svg",
-      "units": {
-        "en": "min",
-        "nl": "min"
-      }
     },
     "my_skoda_target_battery_percent": {
       "type": "number",

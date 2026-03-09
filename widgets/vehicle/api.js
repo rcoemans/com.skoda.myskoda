@@ -68,13 +68,14 @@ function buildState(device) {
   const climateActive = capability(device, 'my_skoda_climate_active', false);
   const locked = capability(device, 'locked', null);
   const chargerConnected = capability(device, 'my_skoda_charger_connected', null);
-  const rangeKm = capability(device, 'my_skoda_range_km');
+  const rangeKm = capability(device, 'meter_range_km');
   const lastUpdated = capability(device, 'my_skoda_last_vehicle_update');
   const connectionStatus = capability(device, 'my_skoda_connection_status', 'unknown');
-  const chargePowerKw = capability(device, 'my_skoda_charge_power_kw');
-  const remainingChargeMinutes = capability(device, 'my_skoda_remaining_charge_minutes');
+  const chargePowerKw = capability(device, 'measure_charge_power_kw');
+  const remainingChargeMinutes = capability(device, 'meter_remaining_charge_minutes');
   const parkingAddress = capability(device, 'my_skoda_parking_address');
   const outsideTemperatureC = capability(device, 'measure_temperature');
+  const doorsOpen = capability(device, 'my_skoda_doors_open', null);
 
   return {
     id: getDeviceInstanceId(device),
@@ -91,6 +92,7 @@ function buildState(device) {
     remainingChargeMinutes,
     parkingAddress,
     outsideTemperatureC,
+    doorsOpen,
     isCharging: chargingState === 'charging',
     chargingLabel: String(chargingState || 'unknown').replace(/_/g, ' '),
     lockLabel: locked === null ? 'unknown' : boolLabel(locked, 'locked', 'unlocked'),

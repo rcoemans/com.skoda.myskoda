@@ -6,345 +6,495 @@
   <style>
     :root {
       color-scheme: light dark;
+      --skoda-green: #4BA82E;
+      --skoda-green-light: #78FAAE;
+      --skoda-green-dark: #1B5E20;
+      --skoda-accent: #3D8C27;
+      --gauge-size: 88px;
+      --gauge-stroke: 7;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--homey-background-color, transparent);
-      color: var(--homey-text-color, #333333);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--homey-background-color, #ffffff);
+      color: var(--homey-text-color, #1a1a1a);
+      -webkit-font-smoothing: antialiased;
     }
 
     .widget {
-      padding: var(--homey-space-14, 14px);
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: var(--homey-space-12, 12px);
+      gap: 14px;
     }
 
+    /* --- Header --- */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--homey-space-12, 12px);
     }
 
-    .title-block {
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       min-width: 0;
     }
 
-    .eyebrow {
-      font-size: var(--homey-text-xs-size, 11px);
-      font-weight: var(--homey-text-xs-weight, 500);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
-      margin-bottom: 2px;
-    }
-
-    .title {
-      font-size: var(--homey-text-xl-size, 20px);
-      font-weight: var(--homey-text-xl-weight, 700);
-      line-height: var(--homey-text-xl-line-height, 1.2);
-      color: var(--homey-text-color, #333333);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .connection {
-      padding: 4px 10px;
-      border-radius: var(--homey-border-radius-full, 999px);
-      font-size: var(--homey-text-xs-size, 12px);
-      font-weight: 600;
-      background: var(--homey-color-mono-100, rgba(0,0,0,0.06));
-      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
-      text-transform: capitalize;
-      white-space: nowrap;
-    }
-
-    .connection.online {
-      background: var(--homey-color-green-050, rgba(44,187,99,0.15));
-      color: var(--homey-color-green-500, #2cbb63);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: var(--homey-space-14, 14px);
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--skoda-green), var(--skoda-green-dark));
+      display: flex;
       align-items: center;
-    }
-
-    .battery {
-      position: relative;
-      width: 56px;
-      height: 56px;
+      justify-content: center;
       flex-shrink: 0;
     }
 
-    .battery img {
-      width: 100%;
-      height: 100%;
-      display: block;
+    .brand-mark svg {
+      width: 16px;
+      height: 16px;
     }
 
-    .charging-overlay {
-      position: absolute;
-      right: -2px;
-      top: -2px;
-      width: 18px !important;
-      height: 18px !important;
-      padding: 3px;
-      border-radius: var(--homey-border-radius-full, 999px);
-      background: var(--homey-color-green-500, #2cbb63);
-      box-shadow: 0 0 0 2px var(--homey-background-color, #ffffff);
-    }
+    .header-text { min-width: 0; }
 
-    .battery-value {
-      font-size: 32px;
-      font-weight: 800;
-      line-height: 1;
-      display: flex;
-      align-items: baseline;
-      gap: 4px;
-      color: var(--homey-text-color, #333333);
-    }
-
-    .battery-unit {
-      font-size: var(--homey-text-md-size, 15px);
-      font-weight: 600;
-      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
-    }
-
-    .hero-subtitle {
-      margin-top: 6px;
-      font-size: var(--homey-text-sm-size, 14px);
-      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
-      text-transform: capitalize;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--homey-space-10, 10px);
-    }
-
-    .metric {
-      display: flex;
-      align-items: center;
-      gap: var(--homey-space-10, 10px);
-      padding: 10px 12px;
-      border-radius: var(--homey-border-radius-large, 14px);
-      background: var(--homey-color-mono-100, rgba(0,0,0,0.04));
-      min-width: 0;
-    }
-
-    .metric-icon {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      opacity: 0.7;
-    }
-
-    .metric-text {
-      min-width: 0;
-    }
-
-    .metric-label {
-      font-size: var(--homey-text-xs-size, 11px);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
-    }
-
-    .metric-value {
-      font-size: var(--homey-text-md-size, 15px);
+    .vehicle-name {
+      font-size: 16px;
       font-weight: 700;
       line-height: 1.2;
-      color: var(--homey-text-color, #333333);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-transform: capitalize;
+      color: var(--homey-text-color, #1a1a1a);
     }
 
+    .vehicle-sub {
+      font-size: 11px;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.45));
+      line-height: 1.3;
+    }
+
+    .status-pill {
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: capitalize;
+      white-space: nowrap;
+      background: var(--homey-color-mono-100, rgba(0,0,0,0.05));
+      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
+    }
+
+    .status-pill.online {
+      background: rgba(75, 168, 46, 0.12);
+      color: var(--skoda-green);
+    }
+
+    /* --- Hero: Battery Gauge + Stats --- */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .gauge-container {
+      position: relative;
+      width: var(--gauge-size);
+      height: var(--gauge-size);
+      flex-shrink: 0;
+    }
+
+    .gauge-ring {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: var(--homey-color-mono-100, rgba(0,0,0,0.06));
+      stroke-width: var(--gauge-stroke);
+    }
+
+    .gauge-fill {
+      fill: none;
+      stroke: var(--skoda-green);
+      stroke-width: var(--gauge-stroke);
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.4s ease;
+    }
+
+    .gauge-fill.low { stroke: var(--homey-color-red-500, #e74c3c); }
+    .gauge-fill.medium { stroke: var(--homey-color-orange-500, #f39c12); }
+    .gauge-fill.charging {
+      stroke: var(--skoda-green-light);
+      filter: drop-shadow(0 0 4px rgba(120, 250, 174, 0.4));
+    }
+
+    .gauge-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-percent {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--homey-text-color, #1a1a1a);
+    }
+
+    .gauge-percent-unit {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.4));
+    }
+
+    .gauge-icon {
+      margin-top: 2px;
+      font-size: 10px;
+    }
+
+    .hero-stats {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.55;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.45));
+      min-width: 50px;
+    }
+
+    .stat-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--homey-text-color, #1a1a1a);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .stat-value.accent { color: var(--skoda-green); }
+
+    /* --- Status Cards --- */
+    .status-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .status-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 4px;
+      border-radius: 12px;
+      background: var(--homey-color-mono-100, rgba(0,0,0,0.03));
+      text-align: center;
+      transition: background 0.2s ease;
+    }
+
+    .status-card-icon {
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+    }
+
+    .status-card-value {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--homey-text-color, #1a1a1a);
+      text-transform: capitalize;
+      line-height: 1.2;
+    }
+
+    .status-card-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.4));
+      line-height: 1.1;
+    }
+
+    .status-card.active {
+      background: rgba(75, 168, 46, 0.08);
+    }
+
+    .status-card.active .status-card-icon { opacity: 0.9; }
+    .status-card.active .status-card-value { color: var(--skoda-green); }
+
+    .status-card.warning {
+      background: rgba(231, 76, 60, 0.06);
+    }
+
+    .status-card.warning .status-card-value {
+      color: var(--homey-color-red-500, #e74c3c);
+    }
+
+    /* --- Action Bar --- */
+    .action-bar {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px 6px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--homey-text-color, #1a1a1a);
+      background: var(--homey-color-mono-100, rgba(0,0,0,0.05));
+      transition: transform 0.1s ease, opacity 0.15s ease, background 0.15s ease;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .action-btn:active { transform: scale(0.96); }
+    .action-btn[disabled] { opacity: 0.35; cursor: default; }
+
+    .action-btn.green {
+      background: linear-gradient(135deg, var(--skoda-green), var(--skoda-accent));
+      color: #ffffff;
+    }
+
+    .action-btn.green:active { background: var(--skoda-green-dark); }
+
+    /* --- Footer --- */
     .footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--homey-space-10, 10px);
-      margin-top: auto;
-      font-size: var(--homey-text-xs-size, 12px);
-      color: var(--homey-text-color-light, rgba(0,0,0,0.5));
+      gap: 8px;
+      font-size: 10px;
+      color: var(--homey-text-color-light, rgba(0,0,0,0.35));
     }
 
-    .address {
-      max-width: calc(100% - 110px);
+    .footer-address {
+      flex: 1;
+      min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .actions {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--homey-space-8, 8px);
+    .footer-address svg {
+      width: 10px;
+      height: 10px;
+      vertical-align: -1px;
+      margin-right: 3px;
+      opacity: 0.5;
     }
 
-    .button {
-      appearance: none;
-      border: 0;
-      cursor: pointer;
-      border-radius: var(--homey-border-radius-large, 14px);
-      min-height: 40px;
-      padding: 10px 12px;
-      font-size: var(--homey-text-sm-size, 13px);
-      font-weight: 700;
-      color: var(--homey-text-color, #333333);
-      background: var(--homey-color-mono-100, rgba(0,0,0,0.06));
-      transition: transform 120ms ease, opacity 120ms ease;
-    }
+    .footer-time { white-space: nowrap; }
 
-    .button.primary {
-      background: var(--homey-color-blue-500, #0E3A2F);
-      color: var(--homey-color-white, #ffffff);
-    }
-
-    .button:active {
-      transform: scale(0.97);
-    }
-
-    .button[disabled] {
-      opacity: 0.4;
-      cursor: default;
-    }
-
+    /* --- Message / Loading --- */
     .message {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 120px;
+      min-height: 140px;
       text-align: center;
-      font-size: var(--homey-text-sm-size, 14px);
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .message-text {
+      font-size: 13px;
       color: var(--homey-text-color-light, rgba(0,0,0,0.5));
-      padding: var(--homey-space-12, 12px);
+      line-height: 1.4;
     }
 
-    .hidden {
-      display: none !important;
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid var(--homey-color-mono-100, rgba(0,0,0,0.08));
+      border-top-color: var(--skoda-green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
     }
 
-    @media (max-width: 420px) {
-      .title {
-        font-size: 18px;
-      }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-      .battery-value {
-        font-size: 28px;
-      }
+    .hidden { display: none !important; }
 
-      .metrics {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
-        grid-template-columns: 1fr;
-      }
-
-      .footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .address {
-        max-width: 100%;
-      }
+    @media (max-width: 380px) {
+      .status-cards { grid-template-columns: repeat(2, 1fr); }
+      .hero { gap: 12px; }
+      .gauge-container { --gauge-size: 72px; }
     }
   </style>
 </head>
 <body>
   <div class="widget">
-    <div id="message" class="message">Loading widget...</div>
+    <!-- Loading / Error State -->
+    <div id="message" class="message">
+      <div class="spinner"></div>
+      <div class="message-text">Loading vehicle data...</div>
+    </div>
 
+    <!-- Main Content -->
     <div id="content" class="hidden">
+
+      <!-- Header -->
       <div class="header">
-        <div class="title-block">
-          <div class="eyebrow">MySkoda</div>
-          <div class="title" id="vehicle-name">Vehicle</div>
+        <div class="header-left">
+          <div class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+              <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+              <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2"/>
+              <path d="M9 17h6"/>
+              <path d="M14 6l-4 0"/>
+            </svg>
+          </div>
+          <div class="header-text">
+            <div class="vehicle-name" id="vehicle-name">MySkoda</div>
+            <div class="vehicle-sub" id="vehicle-sub">--</div>
+          </div>
         </div>
-        <div class="connection" id="connection-status">Unknown</div>
+        <div class="status-pill" id="connection-status">--</div>
       </div>
 
+      <!-- Hero: Battery Gauge + Key Stats -->
       <div class="hero">
-        <div class="battery">
-          <img id="battery-icon" src="./icons/battery-0.svg" alt="Battery">
-          <img id="charging-icon" class="charging-overlay hidden" src="./icons/charging.svg" alt="Charging">
-        </div>
-        <div>
-          <div class="battery-value">
-            <span id="battery-percent">--</span>
-            <span class="battery-unit">%</span>
+        <div class="gauge-container">
+          <svg class="gauge-ring" viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill" id="gauge-fill" cx="50" cy="50" r="42"
+                    stroke-dasharray="263.9" stroke-dashoffset="263.9"/>
+          </svg>
+          <div class="gauge-center">
+            <div class="gauge-percent">
+              <span id="battery-percent">--</span><span class="gauge-percent-unit">%</span>
+            </div>
+            <div class="gauge-icon" id="gauge-icon"></div>
           </div>
-          <div class="hero-subtitle" id="hero-subtitle">Vehicle status unavailable</div>
         </div>
-      </div>
 
-      <div class="metrics">
-        <div class="metric">
-          <img class="metric-icon" src="./icons/range.svg" alt="Range">
-          <div class="metric-text">
-            <div class="metric-label">Range</div>
-            <div class="metric-value" id="range-value">-- km</div>
+        <div class="hero-stats">
+          <div class="stat-row">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L12 22"/><path d="M17 7L12 2L7 7"/><path d="M17 17L12 22L7 17"/></svg>
+            <span class="stat-label">Range</span>
+            <span class="stat-value" id="range-value">-- km</span>
           </div>
-        </div>
-        <div class="metric">
-          <img class="metric-icon" id="lock-icon" src="./icons/unlock.svg" alt="Lock state">
-          <div class="metric-text">
-            <div class="metric-label">Lock</div>
-            <div class="metric-value" id="lock-value">Unknown</div>
+          <div class="stat-row">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8l10-12h-9l1-8z"/></svg>
+            <span class="stat-label">Power</span>
+            <span class="stat-value" id="power-value">--</span>
           </div>
-        </div>
-        <div class="metric">
-          <img class="metric-icon" src="./icons/plug.svg" alt="Plug state">
-          <div class="metric-text">
-            <div class="metric-label">Plug</div>
-            <div class="metric-value" id="plug-value">Unknown</div>
-          </div>
-        </div>
-        <div class="metric">
-          <img class="metric-icon" src="./icons/climate.svg" alt="Climate state">
-          <div class="metric-text">
-            <div class="metric-label">Climate</div>
-            <div class="metric-value" id="climate-value">Unknown</div>
+          <div class="stat-row">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span class="stat-label">Time</span>
+            <span class="stat-value" id="time-value">--</span>
           </div>
         </div>
       </div>
 
-      <div class="actions">
-        <button id="refresh-button" class="button" type="button">Refresh</button>
-        <button id="charging-button" class="button primary" type="button">Charging</button>
-        <button id="climate-button" class="button" type="button">Climate</button>
+      <!-- Status Cards -->
+      <div class="status-cards">
+        <div class="status-card" id="card-lock">
+          <svg class="status-card-icon" id="lock-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <div class="status-card-value" id="lock-value">--</div>
+          <div class="status-card-label">Lock</div>
+        </div>
+        <div class="status-card" id="card-plug">
+          <svg class="status-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v6"/><path d="M8 2v6"/><path d="M16 2v6"/>
+            <path d="M6 8h12a1 1 0 0 1 1 1v2a4 4 0 0 1-4 4h-6a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/>
+            <path d="M10 15v5a2 2 0 0 0 4 0v-5"/>
+          </svg>
+          <div class="status-card-value" id="plug-value">--</div>
+          <div class="status-card-label">Plug</div>
+        </div>
+        <div class="status-card" id="card-climate">
+          <svg class="status-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+            <path d="M12 2v2"/><path d="M12 20v2"/>
+            <path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/>
+            <path d="M2 12h2"/><path d="M20 12h2"/>
+            <path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/>
+          </svg>
+          <div class="status-card-value" id="climate-value">Off</div>
+          <div class="status-card-label">Climate</div>
+        </div>
+        <div class="status-card" id="card-doors">
+          <svg class="status-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 2h11a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+            <path d="M15 12h.01"/>
+          </svg>
+          <div class="status-card-value" id="doors-value">--</div>
+          <div class="status-card-label">Doors</div>
+        </div>
       </div>
 
+      <!-- Action Buttons -->
+      <div class="action-bar">
+        <button id="refresh-button" class="action-btn" type="button">
+          Refresh
+        </button>
+        <button id="charging-button" class="action-btn green" type="button">
+          Charging
+        </button>
+        <button id="climate-button" class="action-btn" type="button">
+          Climate
+        </button>
+      </div>
+
+      <!-- Footer -->
       <div class="footer">
-        <div class="address" id="parking-address">No parking address</div>
-        <div id="last-updated">Updated: --</div>
+        <div class="footer-address" id="parking-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="parking-text">--</span>
+        </div>
+        <div class="footer-time" id="last-updated">--</div>
       </div>
+
     </div>
   </div>
 
   <script type="text/javascript">
-    let HomeyInstance;
-    let currentState = null;
-    let refreshTimer = null;
+    var HomeyInstance;
+    var currentState = null;
+    var refreshTimer = null;
+    var CIRCUMFERENCE = 2 * Math.PI * 42; // matches SVG r=42
 
     function getDeviceId() {
-      const ids = typeof HomeyInstance.getDeviceIds === 'function' ? HomeyInstance.getDeviceIds() : [];
+      var ids = typeof HomeyInstance.getDeviceIds === 'function' ? HomeyInstance.getDeviceIds() : [];
       return Array.isArray(ids) && ids.length > 0 ? ids[0] : null;
     }
 
@@ -352,9 +502,11 @@
       return typeof HomeyInstance.getSettings === 'function' ? (HomeyInstance.getSettings() || {}) : {};
     }
 
-    function setMessage(text) {
-      document.getElementById('message').textContent = text;
-      document.getElementById('message').classList.remove('hidden');
+    function setMessage(text, showSpinner) {
+      var msgEl = document.getElementById('message');
+      msgEl.querySelector('.message-text').textContent = text;
+      msgEl.querySelector('.spinner').style.display = showSpinner ? '' : 'none';
+      msgEl.classList.remove('hidden');
       document.getElementById('content').classList.add('hidden');
     }
 
@@ -363,61 +515,105 @@
       document.getElementById('content').classList.remove('hidden');
     }
 
-    function getBatteryIcon(level) {
-      if (level === null || level === undefined || Number.isNaN(Number(level))) return './icons/battery-0.svg';
-      if (level <= 10) return './icons/battery-0.svg';
-      if (level <= 25) return './icons/battery-1.svg';
-      if (level <= 40) return './icons/battery-2.svg';
-      if (level <= 60) return './icons/battery-3.svg';
-      if (level <= 80) return './icons/battery-4.svg';
-      return './icons/battery-5.svg';
+    function txt(v, fb) {
+      return v == null || v === '' ? fb : String(v);
     }
 
-    function humanizeCharging(state) {
-      if (!state) return 'Unknown';
-      return String(state).replace(/_/g, ' ').replace(/\b\w/g, function(char) { return char.toUpperCase(); });
-    }
+    function setGauge(pct, isCharging) {
+      var el = document.getElementById('gauge-fill');
+      var clamped = Math.max(0, Math.min(100, Number(pct) || 0));
+      var offset = CIRCUMFERENCE - (clamped / 100) * CIRCUMFERENCE;
+      el.style.strokeDashoffset = offset;
 
-    function textOrFallback(value, fallback) {
-      return value === null || value === undefined || value === '' ? fallback : String(value);
+      el.classList.remove('low', 'medium', 'charging');
+      if (isCharging) el.classList.add('charging');
+      else if (clamped <= 15) el.classList.add('low');
+      else if (clamped <= 30) el.classList.add('medium');
     }
 
     function renderState(state) {
       currentState = state;
       var settings = getWidgetSettings();
-      var batteryPercent = state.batteryPercent != null ? state.batteryPercent : '--';
+      var pct = state.batteryPercent;
       var charging = Boolean(state.isCharging);
-      var chargingLabel = humanizeCharging(state.chargingState);
-      var lastUpdatedText = state.lastUpdated ? 'Updated: ' + state.lastUpdated : 'Updated: --';
-      var parkingAddress = settings.show_location === false ? 'Parking address hidden' : textOrFallback(state.parkingAddress, 'No parking address');
 
-      document.getElementById('vehicle-name').textContent = textOrFallback(state.name, 'MySkoda');
-      document.getElementById('connection-status').textContent = textOrFallback(state.connectionStatus, 'unknown');
-      document.getElementById('connection-status').className = 'connection ' + String(state.connectionStatus || 'unknown').toLowerCase();
-      document.getElementById('battery-percent').textContent = batteryPercent;
-      document.getElementById('hero-subtitle').textContent = charging
-        ? chargingLabel + (state.chargePowerKw ? ' \u00b7 ' + state.chargePowerKw + ' kW' : '')
-        : chargingLabel;
-      document.getElementById('battery-icon').src = getBatteryIcon(Number(state.batteryPercent));
-      document.getElementById('charging-icon').classList.toggle('hidden', !charging);
-      document.getElementById('range-value').textContent = state.rangeKm != null ? state.rangeKm + ' km' : '-- km';
-      document.getElementById('lock-value').textContent = textOrFallback(state.lockLabel, 'Unknown');
-      document.getElementById('lock-icon').src = state.locked ? './icons/lock.svg' : './icons/unlock.svg';
-      document.getElementById('plug-value').textContent = textOrFallback(state.plugLabel, 'Unknown');
-      document.getElementById('climate-value').textContent = state.climateActive
-        ? 'Active' + (state.outsideTemperatureC != null ? ' \u00b7 ' + state.outsideTemperatureC + '\u00b0C' : '')
+      // Header
+      document.getElementById('vehicle-name').textContent = txt(state.name, 'MySkoda');
+      var sub = charging
+        ? (state.chargingState || '').replace(/_/g, ' ')
+        : txt(state.connectionStatus, 'unknown');
+      document.getElementById('vehicle-sub').textContent = sub.charAt(0).toUpperCase() + sub.slice(1);
+
+      var pill = document.getElementById('connection-status');
+      pill.textContent = txt(state.connectionStatus, 'unknown');
+      pill.className = 'status-pill ' + String(state.connectionStatus || 'unknown').toLowerCase();
+
+      // Gauge
+      document.getElementById('battery-percent').textContent = pct != null ? pct : '--';
+      setGauge(pct, charging);
+      document.getElementById('gauge-icon').textContent = charging ? '\u26A1' : '';
+
+      // Hero stats
+      document.getElementById('range-value').textContent = state.rangeKm != null ? state.rangeKm + ' km' : '--';
+      var powerText = state.chargePowerKw != null ? state.chargePowerKw + ' kW' : '--';
+      document.getElementById('power-value').textContent = powerText;
+      if (charging) document.getElementById('power-value').classList.add('accent');
+      else document.getElementById('power-value').classList.remove('accent');
+      var timeText = state.remainingChargeMinutes != null
+        ? (state.remainingChargeMinutes >= 60
+          ? Math.floor(state.remainingChargeMinutes / 60) + 'h ' + (state.remainingChargeMinutes % 60) + 'm'
+          : state.remainingChargeMinutes + ' min')
+        : '--';
+      document.getElementById('time-value').textContent = timeText;
+
+      // Status cards
+      var lockCard = document.getElementById('card-lock');
+      var locked = state.locked;
+      document.getElementById('lock-value').textContent = locked === true ? 'Locked' : locked === false ? 'Unlocked' : '--';
+      lockCard.className = 'status-card' + (locked === true ? ' active' : locked === false ? ' warning' : '');
+
+      // Update lock icon SVG: locked = closed padlock, unlocked = open padlock
+      var lockSvg = document.getElementById('lock-icon-svg');
+      if (locked === true) {
+        lockSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>';
+      } else if (locked === false) {
+        lockSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5"/>';
+      }
+
+      var plugCard = document.getElementById('card-plug');
+      var plugged = state.chargerConnected;
+      document.getElementById('plug-value').textContent = plugged === true ? 'Connected' : plugged === false ? 'Disconnected' : '--';
+      plugCard.className = 'status-card' + (plugged === true ? ' active' : '');
+
+      var climateCard = document.getElementById('card-climate');
+      var climateOn = state.climateActive;
+      document.getElementById('climate-value').textContent = climateOn
+        ? 'On' + (state.outsideTemperatureC != null ? ' ' + state.outsideTemperatureC + '\u00b0' : '')
         : 'Off';
-      document.getElementById('parking-address').textContent = parkingAddress;
-      document.getElementById('last-updated').textContent = lastUpdatedText;
-      document.getElementById('charging-button').textContent = charging ? 'Stop Charging' : 'Start Charging';
-      document.getElementById('climate-button').textContent = state.climateActive ? 'Stop Climate' : 'Start Climate';
+      climateCard.className = 'status-card' + (climateOn ? ' active' : '');
+
+      var doorsCard = document.getElementById('card-doors');
+      var doorsOpen = state.doorsOpen;
+      document.getElementById('doors-value').textContent = doorsOpen === true ? 'Open' : doorsOpen === false ? 'Closed' : '--';
+      doorsCard.className = 'status-card' + (doorsOpen === true ? ' warning' : doorsOpen === false ? '' : '');
+
+      // Action buttons
+      document.getElementById('charging-button').textContent = charging ? 'Stop Charge' : 'Charge';
+      document.getElementById('climate-button').textContent = climateOn ? 'Stop Climate' : 'Climate';
+
+      // Footer
+      var addr = settings.show_location === false ? 'Location hidden' : txt(state.parkingAddress, '');
+      document.getElementById('parking-text').textContent = addr;
+      document.getElementById('parking-address').style.display = addr ? '' : 'none';
+      document.getElementById('last-updated').textContent = state.lastUpdated ? state.lastUpdated : '--';
+
       showContent();
     }
 
     async function fetchState() {
       var deviceId = getDeviceId();
       if (!deviceId) {
-        setMessage('Select a MySkoda vehicle for this widget.');
+        setMessage('Select a MySkoda vehicle for this widget.', false);
         return;
       }
 
@@ -425,28 +621,22 @@
         var state = await HomeyInstance.api('GET', '/state?deviceId=' + encodeURIComponent(deviceId));
         renderState(state);
       } catch (error) {
-        setMessage(error && error.message ? error.message : 'Failed to load widget data.');
+        setMessage(error && error.message ? error.message : 'Failed to load data.', false);
       }
     }
 
     async function callAction(path, body) {
-      var buttonIds = ['refresh-button', 'charging-button', 'climate-button'];
-      buttonIds.forEach(function(id) {
-        document.getElementById(id).disabled = true;
-      });
+      var btns = document.querySelectorAll('.action-btn');
+      btns.forEach(function(b) { b.disabled = true; });
 
       try {
-        if (typeof HomeyInstance.hapticFeedback === 'function') {
-          HomeyInstance.hapticFeedback();
-        }
+        if (typeof HomeyInstance.hapticFeedback === 'function') HomeyInstance.hapticFeedback();
         await HomeyInstance.api('POST', path, body);
         await fetchState();
       } catch (error) {
-        setMessage(error && error.message ? error.message : 'Action failed.');
+        setMessage(error && error.message ? error.message : 'Action failed.', false);
       } finally {
-        buttonIds.forEach(function(id) {
-          document.getElementById(id).disabled = false;
-        });
+        btns.forEach(function(b) { b.disabled = false; });
       }
     }
 
@@ -478,7 +668,7 @@
 
     function onHomeyReady(Homey) {
       HomeyInstance = Homey;
-      Homey.ready({ height: 340 });
+      Homey.ready({ height: 370 });
       bindActions();
       fetchState();
       refreshTimer = setInterval(fetchState, 30000);

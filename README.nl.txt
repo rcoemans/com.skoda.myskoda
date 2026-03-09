@@ -17,6 +17,7 @@ Functies:
 - 8 flow-actiekaarten: gegevens vernieuwen, laden starten/stoppen, klimaatregeling starten/stoppen, laadlimiet instellen, voertuig vergrendelen/ontgrendelen
 - Parkeeradres: automatisch bepaald vanuit GPS-coördinaten via OpenStreetMap reverse geocoding
 - Inzichten: historische grafieken voor accuniveau, temperatuur, kilometerstand, bereik, laadvermogen en resterende laadtijd
+- Apparaatstatusindicatoren: kilometerstand, bereik, resterende laadtijd, laadvermogen en accuniveau kunnen op de apparaattegel worden weergegeven
 - Volledig gelokaliseerd in het Engels en Nederlands
 
 Ondersteunde voertuigen:
@@ -43,6 +44,11 @@ De S-PIN is een 4-cijferige beveiligingscode die is aangemaakt tijdens de instal
 Probleemoplossing:
 - App niet zichtbaar bij toevoegen apparaat: als MyŠkoda niet verschijnt in de apparatenlijst, ga naar Meer > Apps > MyŠkoda > ⋮ > Herstart. Probeer na het herstarten opnieuw het apparaat toe te voegen.
 - Inloggen mislukt: als je inloggegevens correct zijn, toont de foutmelding nu de onderliggende reden. Veelvoorkomende oorzaken zijn openstaande voorwaarden/marketingtoestemming (accepteer deze eerst in de officiële MyŠkoda-app), tijdelijke problemen met de VW-identiteitsserver, of accountvergrendeling na te veel pogingen.
+
+Vergrendeld vs. Deuren:
+De Vergrendeld-functie en de Deuren open-functie zijn onafhankelijk van elkaar. Vergrendeld geeft de status van het centrale vergrendelingssysteem weer (vergrendeld/ontgrendeld). Deuren open geeft aan of er een fysieke deur open staat (open/dicht). Een auto kan ontgrendeld zijn met alle deuren dicht. Dit zijn geen tegengestelden — ze vertegenwoordigen verschillende voertuigstatussen.
+
+Opmerking: Na het updaten naar deze versie moet je het apparaat verwijderen en opnieuw toevoegen zodat de hernoemde functies als apparaatstatusindicatoren beschikbaar worden.
 
 Bekende beperkingen:
 - De MyŠkoda-API is cloudgebaseerd — het voertuig moet een actieve internetverbinding hebben

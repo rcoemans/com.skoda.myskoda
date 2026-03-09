@@ -8,7 +8,7 @@
     "singular": true,
     "filter": {
       "class": "other",
-      "capabilities": "measure_battery,my_skoda_charging_state,my_skoda_range_km"
+      "capabilities": "measure_battery,my_skoda_charging_state,meter_range_km"
     }
   },
   "settings": [
@@ -37,7 +37,7 @@
       "value": true
     }
   ],
-  "height": 100,
+  "height": 370,
   "api": {
     "getState": {
       "method": "GET",

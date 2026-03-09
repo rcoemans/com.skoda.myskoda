@@ -160,12 +160,12 @@ class CarDevice extends Homey.Device {
     await this._safeSetCapability('locked', state.locked);
     await this._safeSetCapability('measure_temperature', state.outsideTemperatureC);
     await this._safeSetCapability('my_skoda_connection_status', state.connectionStatus || 'unknown');
-    await this._safeSetCapability('my_skoda_mileage_km', state.mileageKm);
-    await this._safeSetCapability('my_skoda_range_km', state.rangeKm);
+    await this._safeSetCapability('meter_mileage_km', state.mileageKm);
+    await this._safeSetCapability('meter_range_km', state.rangeKm);
     await this._safeSetCapability('my_skoda_charger_connected', state.chargerConnected);
     await this._safeSetCapability('my_skoda_charging_state', state.chargingState || 'unknown');
-    await this._safeSetCapability('my_skoda_charge_power_kw', state.chargePowerKw);
-    await this._safeSetCapability('my_skoda_remaining_charge_minutes', state.remainingChargeMinutes);
+    await this._safeSetCapability('measure_charge_power_kw', state.chargePowerKw);
+    await this._safeSetCapability('meter_remaining_charge_minutes', state.remainingChargeMinutes);
     await this._safeSetCapability('my_skoda_target_battery_percent', state.targetBatteryPercent);
     await this._safeSetCapability('my_skoda_doors_open', state.doorsOpen);
     await this._safeSetCapability('my_skoda_windows_open', state.windowsOpen);

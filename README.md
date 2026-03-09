@@ -85,12 +85,12 @@ All capabilities exposed by the Car device:
 | `measure_temperature`               | number  | Outside temperature (°C)                 |
 | `my_skoda_connection_status`        | enum    | Vehicle connection status (online/offline)|
 | `my_skoda_last_vehicle_update`      | string  | Timestamp of last data update            |
-| `my_skoda_mileage_km`              | number  | Odometer reading (km)                    |
-| `my_skoda_range_km`                | number  | Estimated remaining range (km)           |
+| `meter_mileage_km`                  | number  | Odometer reading (km) — device indicator |
+| `meter_range_km`                    | number  | Estimated remaining range (km) — device indicator |
 | `my_skoda_charger_connected`        | boolean | Whether the charger cable is connected   |
 | `my_skoda_charging_state`           | enum    | Charging state (charging, ready, etc.)   |
-| `my_skoda_charge_power_kw`          | number  | Current charging power (kW)              |
-| `my_skoda_remaining_charge_minutes` | number  | Minutes until fully charged              |
+| `measure_charge_power_kw`           | number  | Current charging power (kW) — device indicator |
+| `meter_remaining_charge_minutes`    | number  | Minutes until fully charged — device indicator |
 | `my_skoda_target_battery_percent`   | number  | Target charge level (%)                  |
 | `my_skoda_doors_open`               | boolean | Any door open                            |
 | `my_skoda_windows_open`             | boolean | Any window open                          |
@@ -184,11 +184,22 @@ The parking address is automatically resolved from the vehicle's GPS coordinates
 The following capabilities are available as **Homey Insights** for historical charts:
 
 - Battery level, Outside temperature (built-in)
-- Mileage, Range, Remaining charge time, Charging power (custom)
+- Mileage (`meter_mileage_km`), Range (`meter_range_km`), Remaining charge time (`meter_remaining_charge_minutes`), Charging power (`measure_charge_power_kw`)
 
 ## Device Status Indicators
 
-You can add the following capabilities as **Device Status Indicators** on your Homey device tile: Mileage (Kilometerstand), Range (Bereik), Remaining charge time (Resterende laadtijd), and Battery level (Accuniveau).
+You can add the following capabilities as **Device Status Indicators** on your Homey device tile: Battery level, Mileage, Range, Remaining charge time, Charging power, and Outside temperature. These capabilities use the `measure_` or `meter_` prefix, which is required by Homey to make them selectable as device tile indicators.
+
+> **Note:** After updating to this version, you must **remove and re-add the device** for the renamed capabilities to appear as device status indicators.
+
+## Lock vs. Doors
+
+The **Locked** capability (`locked`) and **Doors open** capability (`my_skoda_doors_open`) are **independent**:
+
+- **Locked** reflects the central locking system state (locked/unlocked).
+- **Doors open** reflects whether any physical door is open (open/closed).
+
+A car can be unlocked with all doors closed, or locked with doors closed. These are not opposites — they represent different vehicle states.
 
 ## Known Limitations
 

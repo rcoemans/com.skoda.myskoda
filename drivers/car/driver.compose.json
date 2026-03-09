@@ -15,12 +15,12 @@
     "measure_temperature",
     "my_skoda_connection_status",
     "my_skoda_last_vehicle_update",
-    "my_skoda_mileage_km",
-    "my_skoda_range_km",
+    "meter_mileage_km",
+    "meter_range_km",
     "my_skoda_charger_connected",
     "my_skoda_charging_state",
-    "my_skoda_charge_power_kw",
-    "my_skoda_remaining_charge_minutes",
+    "measure_charge_power_kw",
+    "meter_remaining_charge_minutes",
     "my_skoda_target_battery_percent",
     "my_skoda_doors_open",
     "my_skoda_windows_open",
@@ -50,16 +50,16 @@
         "nl": "Buitentemperatuur"
       }
     },
-    "my_skoda_mileage_km": {
+    "meter_mileage_km": {
       "preventInsights": false
     },
-    "my_skoda_range_km": {
+    "meter_range_km": {
       "preventInsights": false
     },
-    "my_skoda_remaining_charge_minutes": {
+    "meter_remaining_charge_minutes": {
       "preventInsights": false
     },
-    "my_skoda_charge_power_kw": {
+    "measure_charge_power_kw": {
       "preventInsights": false
     }
   },
