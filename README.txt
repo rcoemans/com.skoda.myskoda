@@ -6,6 +6,7 @@ Features:
 - Real-time vehicle data: battery level, charging status, charging power, remaining charge time, estimated range
 - Vehicle status: locked/unlocked, doors, windows, trunk, bonnet state
 - Climate control: start/stop air conditioning with target temperature
+- Homey dashboard widget: live vehicle overview with quick actions for refresh, charging, and climatization
 - Location tracking: GPS coordinates and parking address
 - Connection status: online/offline monitoring
 - Outside temperature and mileage tracking
@@ -19,6 +20,10 @@ Supported vehicles:
 - Škoda Elroq, Enyaq, Enyaq Coupé (full EV support)
 - Škoda Superb iV, Octavia iV (PHEV — charging & climate features)
 - Other MyŠkoda-connected vehicles (basic status may work)
+
+Requirements:
+- Homey Pro or Homey Cloud with firmware 12.3.0 or newer
+- A paired MyŠkoda vehicle device to use in the dashboard widget
 
 Setup:
 1. Install the app on your Homey

@@ -1,0 +1,67 @@
+{
+  "name": {
+    "en": "Vehicle Dashboard",
+    "nl": "Voertuigdashboard"
+  },
+  "devices": {
+    "type": "app",
+    "singular": true,
+    "filter": {
+      "class": "other",
+      "capabilities": "measure_battery,my_skoda_charging_state,my_skoda_range_km"
+    }
+  },
+  "settings": [
+    {
+      "id": "climate_temperature",
+      "type": "number",
+      "title": {
+        "en": "Climate target temperature (°C)",
+        "nl": "Doeltemperatuur klimaat (°C)"
+      },
+      "hint": {
+        "en": "Used when starting climatization from the widget.",
+        "nl": "Wordt gebruikt wanneer klimaatregeling vanuit de widget wordt gestart."
+      },
+      "value": 21,
+      "min": 16,
+      "max": 30
+    },
+    {
+      "id": "show_location",
+      "type": "checkbox",
+      "title": {
+        "en": "Show parking address",
+        "nl": "Parkeeradres tonen"
+      },
+      "value": true
+    }
+  ],
+  "height": 100,
+  "api": {
+    "getState": {
+      "method": "GET",
+      "path": "/state"
+    },
+    "refreshVehicle": {
+      "method": "POST",
+      "path": "/actions/refresh"
+    },
+    "startCharging": {
+      "method": "POST",
+      "path": "/actions/start-charging"
+    },
+    "stopCharging": {
+      "method": "POST",
+      "path": "/actions/stop-charging"
+    },
+    "startClimate": {
+      "method": "POST",
+      "path": "/actions/start-climate"
+    },
+    "stopClimate": {
+      "method": "POST",
+      "path": "/actions/stop-climate"
+    }
+  }
+}

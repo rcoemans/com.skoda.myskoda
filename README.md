@@ -29,7 +29,18 @@ Homey app for **Škoda** vehicles using the **MyŠkoda platform**. Connect your 
 
 - A Škoda vehicle with active **MyŠkoda Connect** services
 - A **MyŠkoda account** (the same account used in the official MyŠkoda mobile app)
-- **Homey Pro** or **Homey Cloud** with SDK v3 support (firmware ≥ 10.0.0)
+- **Homey Pro** or **Homey Cloud** with SDK v3 support (firmware ≥ 12.3.0)
+
+## Widgets
+
+The app includes a **Vehicle Dashboard** widget for Homey dashboards.
+
+- **Live overview**: battery level, charging state, range, lock state, plug state, climate state, parking address, and last update
+- **Quick actions**: refresh vehicle data, start/stop charging, and start/stop climatization
+- **Device picker**: select a paired MyŠkoda vehicle directly when placing the widget
+- **Widget settings**: configure the climatization target temperature and choose whether to show the parking address
+
+The widget uses the same capabilities and action methods as the paired vehicle device, so it stays in sync with the app without changing existing flow or device behavior.
 
 ## Installation
 

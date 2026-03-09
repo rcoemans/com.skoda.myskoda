@@ -6,6 +6,7 @@ Functies:
 - Realtime voertuiggegevens: accuniveau, laadstatus, laadvermogen, resterende laadtijd, geschat bereik
 - Voertuigstatus: vergrendeld/ontgrendeld, deuren, ramen, kofferbak, motorkap
 - Klimaatregeling: start/stop airconditioning met doeltemperatuur
+- Homey-dashboardwidget: live voertuigozicht met snelle acties voor vernieuwen, laden en klimaatregeling
 - Locatie tracking: GPS-coördinaten en parkeeradres
 - Verbindingsstatus: online/offline monitoring
 - Buitentemperatuur en kilometerstand
@@ -19,6 +20,10 @@ Ondersteunde voertuigen:
 - Škoda Elroq, Enyaq, Enyaq Coupé (volledige EV-ondersteuning)
 - Škoda Superb iV, Octavia iV (PHEV — laad- en klimaatfuncties)
 - Andere MyŠkoda-verbonden voertuigen (basisstatus kan werken)
+
+Vereisten:
+- Homey Pro of Homey Cloud met firmware 12.3.0 of nieuwer
+- Een gekoppeld MyŠkoda-voertuigapparaat om in de dashboardwidget te gebruiken
 
 Installatie:
 1. Installeer de app op je Homey
