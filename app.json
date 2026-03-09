@@ -583,7 +583,8 @@
             }
           },
           "navigation": {
-            "prev": "login"
+            "prev": "login",
+            "next": "add_devices"
           }
         },
         {
