@@ -5,5 +5,8 @@
   },
   "1.0.1": {
     "en": "Added widgets"
+  },
+  "1.0.2": {
+    "en": "Fixed authentication issues"
   }
 }
