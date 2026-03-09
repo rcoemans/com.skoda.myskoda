@@ -1,20 +1,13 @@
-MyŠkoda-integratie voor Homey.
-
-Verbind je Škoda-voertuig met Homey via het MyŠkoda-platform. Monitor het accuniveau, de laadstatus, locatie en voertuigstatus, en bedien functies zoals laden en klimaatregeling rechtstreeks vanuit Homey-flows.
-
 Functies:
 - Realtime voertuiggegevens: accuniveau, laadstatus, laadvermogen, resterende laadtijd, geschat bereik
 - Voertuigstatus: vergrendeld/ontgrendeld, deuren, ramen, kofferbak, motorkap
 - Klimaatregeling: start/stop airconditioning met doeltemperatuur
-- Homey-dashboardwidgets: Voertuigdashboard met live overzicht en snelle acties, plus een eenvoudige Voertuigstatus-widget voor diagnostiek
+- Voertuigdashboard-widget met live overzicht en snelle acties
 - Locatie tracking: GPS-coördinaten en parkeeradres
 - Verbindingsstatus: online/offline monitoring
 - Buitentemperatuur en kilometerstand
 - Geofence-triggers: voertuig thuisgekomen / van huis vertrokken
-- 5 flow-triggerkaarten: laden gestart/gestopt, accu onder drempel, voertuig thuisgekomen/vertrokken
-- Op afstand vergrendelen/ontgrendelen: vergrendel of ontgrendel je voertuig via de apparaatschakelaar of flow-kaarten (vereist MyŠkoda S-PIN)
-- 3 flow-conditiekaarten met inversie-ondersteuning (is/is niet): laden, lader aangesloten, voertuig vergrendeld
-- 8 flow-actiekaarten: gegevens vernieuwen, laden starten/stoppen, klimaatregeling starten/stoppen, laadlimiet instellen, voertuig vergrendelen/ontgrendelen
+- Op afstand vergrendelen/ontgrendelen via de apparaatschakelaar of flow-kaarten (vereist MyŠkoda S-PIN)
 - Parkeeradres: automatisch bepaald vanuit GPS-coördinaten via OpenStreetMap reverse geocoding
 - Inzichten: historische grafieken voor accuniveau, temperatuur, kilometerstand, bereik, laadvermogen en resterende laadtijd
 - Apparaatstatusindicatoren: kilometerstand, bereik, resterende laadtijd, laadvermogen en accuniveau kunnen op de apparaattegel worden weergegeven
@@ -47,8 +40,6 @@ Probleemoplossing:
 
 Vergrendeld vs. Deuren:
 De Vergrendeld-functie en de Deuren open-functie zijn onafhankelijk van elkaar. Vergrendeld geeft de status van het centrale vergrendelingssysteem weer (vergrendeld/ontgrendeld). Deuren open geeft aan of er een fysieke deur open staat (open/dicht). Een auto kan ontgrendeld zijn met alle deuren dicht. Dit zijn geen tegengestelden — ze vertegenwoordigen verschillende voertuigstatussen.
-
-Opmerking: Na het updaten naar deze versie moet je het apparaat verwijderen en opnieuw toevoegen zodat de hernoemde functies als apparaatstatusindicatoren beschikbaar worden.
 
 Bekende beperkingen:
 - De MyŠkoda-API is cloudgebaseerd — het voertuig moet een actieve internetverbinding hebben

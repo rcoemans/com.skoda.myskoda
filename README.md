@@ -33,7 +33,7 @@ Homey app for **Škoda** vehicles using the **MyŠkoda platform**. Connect your 
 
 ## Widgets
 
-The app includes two widgets for Homey dashboards:
+The app includes a widget for Homey dashboards:
 
 ### Vehicle Dashboard
 
@@ -43,10 +43,6 @@ The app includes two widgets for Homey dashboards:
 - **Widget settings**: configure the climatization target temperature and choose whether to show the parking address
 
 The widget uses the same capabilities and action methods as the paired vehicle device, so it stays in sync with the app without changing existing flow or device behavior.
-
-### Vehicle Status
-
-A simple status widget that confirms the app is running and widgets are functioning correctly. Useful for diagnostics.
 
 ## Installation
 

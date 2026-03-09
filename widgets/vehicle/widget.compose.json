@@ -8,7 +8,7 @@
     "singular": true,
     "filter": {
       "class": "other",
-      "capabilities": "measure_battery,my_skoda_charging_state,meter_range_km"
+      "capabilities": "measure_battery,my_skoda_charging_state"
     }
   },
   "settings": [

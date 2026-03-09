@@ -25,11 +25,31 @@ class CarDevice extends Homey.Device {
     const vin = this.getData().vin;
     this.log(`Initializing device for VIN ${redactVin(vin)}`);
 
+    await this._migrateCapabilities();
     await this.initializeApiClient();
     this._registerCapabilityListeners();
     this._startPolling();
 
     this.log(`Device initialized for VIN ${redactVin(vin)}`);
+  }
+
+  private async _migrateCapabilities(): Promise<void> {
+    const renames: [string, string][] = [
+      ['my_skoda_mileage_km', 'meter_mileage_km'],
+      ['my_skoda_range_km', 'meter_range_km'],
+      ['my_skoda_remaining_charge_minutes', 'meter_remaining_charge_minutes'],
+      ['my_skoda_charge_power_kw', 'measure_charge_power_kw'],
+    ];
+
+    for (const [oldCap, newCap] of renames) {
+      if (this.hasCapability(oldCap)) {
+        this.log(`Migrating capability ${oldCap} → ${newCap}`);
+        await this.removeCapability(oldCap).catch((err: any) => this.error(`Failed to remove ${oldCap}:`, err.message));
+      }
+      if (!this.hasCapability(newCap)) {
+        await this.addCapability(newCap).catch((err: any) => this.error(`Failed to add ${newCap}:`, err.message));
+      }
+    }
   }
 
   async initializeApiClient(): Promise<void> {

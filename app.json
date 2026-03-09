@@ -12,8 +12,8 @@
     "nl": "MyŠkoda"
   },
   "description": {
-    "en": "Connect your Škoda vehicle to Homey using the MyŠkoda platform. Monitor battery level, charging status, location, and vehicle state, and control features like charging and climatization directly from Homey flows.",
-    "nl": "Verbind je Škoda-voertuig met Homey via het MyŠkoda-platform. Monitor het accuniveau, de laadstatus, locatie en voertuigstatus, en bedien functies zoals laden en klimaatregeling rechtstreeks vanuit Homey-flows."
+    "en": "Your Škoda, always within reach.",
+    "nl": "Je Škoda, altijd binnen handbereik."
   },
   "category": [
     "energy"
@@ -793,21 +793,6 @@
     }
   ],
   "widgets": {
-    "status": {
-      "name": {
-        "en": "Vehicle Status",
-        "nl": "Voertuigstatus"
-      },
-      "settings": [],
-      "height": 120,
-      "api": {
-        "getStatus": {
-          "method": "GET",
-          "path": "/"
-        }
-      },
-      "id": "status"
-    },
     "vehicle": {
       "name": {
         "en": "Vehicle Dashboard",
@@ -818,7 +803,7 @@
         "singular": true,
         "filter": {
           "class": "other",
-          "capabilities": "measure_battery,my_skoda_charging_state,meter_range_km"
+          "capabilities": "measure_battery,my_skoda_charging_state"
         }
       },
       "settings": [
