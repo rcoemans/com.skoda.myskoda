@@ -29,5 +29,8 @@
   },
   "1.0.9": {
     "en": "Improved App Store compliance by simplifying README.txt and README.nl.txt (removed duplicated descriptions, flow card listings, obsolete widget references, and re-add device notes). Updated the app description tagline to Your Škoda, always within reach. Je Škoda, altijd binnen handbereik. Replaced the driver icon with a clean line-art car icon that follows Homey design guidelines for canvas size and stroke width. Fixed the vehicle widget device selection by simplifying the capability filter and adding automatic capability migration so existing devices update without needing to be re-added. Removed the unused status widget and updated README.md to reflect the single remaining widget and remove outdated sections."
+  },
+  "1.0.10": {
+    "en": "Fix vehicle lock detection: normalize overall.locked to uppercase and accept YES or LOCKED (API v2 returns YES/NO), ensuring correct locked and doorsLocked state detection."
   }
 }
