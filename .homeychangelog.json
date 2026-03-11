@@ -35,5 +35,8 @@
   },
   "1.0.11": {
     "en": "Fix driver icon, remove connection status elements, convert status cards to 2-column grid, improve spacing/footer layout, and update widget preview"
+  },
+  "1.0.12": {
+    "en": "Widget images adjusted"
   }
 }
