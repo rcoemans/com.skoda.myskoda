@@ -1,7 +1,10 @@
 # MyŠkoda
 
 [![Homey App](https://img.shields.io/badge/Homey-App%20Store-00A94F?logo=homey)](https://homey.app/en-nl/app/com.skoda.myskoda/MyŠkoda/)
+[![Homey App Test](https://img.shields.io/badge/Homey-Test%20App-FFA500?logo=homey)](https://homey.app/en-nl/app/com.skoda.myskoda/MyŠkoda/test/)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
+
+> App has not yet been submitted for certification but is available via [test](https://homey.app/en-nl/app/com.skoda.myskoda/MyŠkoda/test/) link.
 
 Homey app for **Škoda** vehicles using the **MyŠkoda platform**. Connect your vehicle to Homey to monitor battery level, charging status, location, and vehicle state, and control features like charging and climatization directly from Homey flows.
 
